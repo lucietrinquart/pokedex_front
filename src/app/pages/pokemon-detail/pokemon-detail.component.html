@@ -39,9 +39,14 @@
           </ul>
     </div>
 
-    <!-- <div>
-        <h2>Évolution</h2>
-        <p>{{pokemonevolution.evolution_avant}}</p>
-      </div> -->
+    @if(pokemonevolution){
+        <div>
+            <h2>Évolution</h2>
+            @for(evolution_avant of pokemonevolution.evolution_apres; track evolution_avant.id){
+                <img [src]="evolution_avant.evolves_to.sprites?.artwork_url">
+            }
+        </div>
+    }
+
 
   }

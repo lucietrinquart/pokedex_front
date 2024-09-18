@@ -17,6 +17,8 @@ export class PokemonListComponent {
   constructor(
     public apiService: ApiService, // Le service API utilisé pour faire des requêtes HTTP
   ) {
+    this.apiService.requestApi(`/search`)
+
     // Appel initial pour charger la première page des pokemons
     this.loadNextPokemonPage();
   }

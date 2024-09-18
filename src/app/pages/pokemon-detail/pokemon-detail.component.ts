@@ -37,11 +37,7 @@ export class PokemonDetailComponent {
 
             // Appel de l'API pour récupérer les informations sur l'évolution du Pokémon
             this.apiService.requestApi(`/pokemon/${params['pokemon_id']}/evolution`)
-            .then((response: {
-              pokemon: Pokemon,
-              evolution_avant: PokemonVariety[],
-              evolution_apres: PokemonVariety[]
-            }) => {
+            .then((response: PokemonChain) => {
               this.pokemonevolution = response; // Stocker les données d'évolution dans une propriété distincte
             })
             

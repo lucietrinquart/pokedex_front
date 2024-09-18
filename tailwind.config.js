@@ -6,7 +6,17 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+      sans: ['Fira Sans', 'sans-serif'],
+      'police': 'montserrat'
+      },
+      colors:{
+        'rouge': '#EB0000',
+        'autrerouge': '#FF6E6E',
+        'noir': '#313131'
+      }
+  },
   },
   plugins: [],
 }
