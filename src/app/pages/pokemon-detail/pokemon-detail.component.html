@@ -1,5 +1,5 @@
 @if (pokemon){
-    <h1 class="flex items-center mb-6"><a [routerLink]="['/']" class="btn btn-circle btn-primary mr-2"><-</a> {{pokemon.name}}</h1>
+    <h1 class="flex items-center mb-6"><a [routerLink]="['/']" class="btn btn-circle btn-primary mr-2">"<-</a> {{pokemon.name}}</h1>
     <div class="flex items-center justify-center p-4 relative">
       <img [src]="pokemon.default_variety.sprites?.artwork_url" [alt]="pokemon.name" class="w-full max-w-md">
       <div class="absolute top-0 left-0 p-4 flex flex-col gap-2">
@@ -28,4 +28,20 @@
             <li>{{pokemon.default_variety.base_stat_speed}}</li>
         </ul>
     </div>
+
+    <div>
+        <h1>Attaque:</h1>
+        <ul>
+            <!-- Itération sur les mouvements du Pokémon -->
+            <li *ngFor="let move of Moves">
+              {{ move.name }} - PP: {{ move.pp }}
+            </li>
+          </ul>
+    </div>
+
+    <!-- <div>
+        <h2>Évolution</h2>
+        <p>{{pokemonevolution.evolution_avant}}</p>
+      </div> -->
+
   }
