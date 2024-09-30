@@ -10,3 +10,64 @@
       @apply border-zinc-700 bg-zinc-300;
     }
   }
+
+
+  .bg-img{
+    &-water{
+      background-image: url('/assets/image_896.png'), 
+    }
+    &-fire{
+      background-image: url('/assets/image_895.png');
+    }
+    &-grass{
+      background-image: url('/assets/image_897.png');
+    }
+    &-normal{
+      background-image: url('/assets/normal.jpg');
+    }
+    &-electric{
+      background-image: url('/assets/2151762562_1.png');
+    }
+    &-ice{
+      background-image: url('/assets/28cd129bd718f2faf2bdbc2fe90aab5d_1.png');
+    }
+    &-fighting{
+      background-image: url('/assets/fighting.jpg');
+    }
+    &-poison{
+      background-image: url('/assets/poison.jpg');
+    }
+    &-fighting{
+      background-image: url('/assets/image_895.png');
+    }
+    &-ground{
+      background-image: url('/assets/sol.jpg');
+    }
+    &-flying{
+      background-image: url('/assets/vol.jpg');
+    }
+    &-psychic{
+      background-image: url('/assets/psy.jpg');
+    }
+    &-bug{
+      background-image: url('/assets/insecte.jpg');
+    }
+    &-rock{
+      background-image: url('/assets/roche.jpg');
+    }
+    &-ghost{
+      background-image: url('/assets/spectre.jpg');
+    }
+    &-dragon{
+      background-image: url('/assets/dragon.jpg');
+    }
+    &-dark{
+      background-image: url('/assets/darck.jpg');
+    }
+    &-steel{
+      background-image: url('/assets/67fb48d81227b74c3a0c4c997c0c63a4_1.png');
+    }
+    &-fairy{
+      background-image: url('/assets/fairy.jpg');
+    }
+  }

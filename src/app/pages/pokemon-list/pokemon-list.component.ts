@@ -2,6 +2,8 @@ import { Component, HostListener } from '@angular/core';
 import { ApiService } from "../../shared/services/api.service";
 import { Paginate } from "../../shared/interfaces/paginate";
 import { Pokemon } from "../../shared/interfaces/pokemon";
+import { Type } from "../../shared/interfaces/type";
+
 
 @Component({
   selector: 'app-pokemon-list', // Le sélecteur de ce composant, utilisé dans d'autres templates pour l'afficher
@@ -13,11 +15,11 @@ export class PokemonListComponent {
   // Variable qui stocke la liste des pokemons paginée
   pokemonList?: Paginate<Pokemon>;
   isLoading: boolean = false;
+  pokemonetype: Type[] = []; 
 
   constructor(
     public apiService: ApiService, // Le service API utilisé pour faire des requêtes HTTP
   ) {
-    this.apiService.requestApi(`/search`)
 
     // Appel initial pour charger la première page des pokemons
     this.loadNextPokemonPage();
@@ -32,6 +34,20 @@ export class PokemonListComponent {
     if (this.pokemonList) {
       page = this.pokemonList.current_page + 1;
     }
+
+    this.apiService.requestApi(`/type`, 'GET')
+    .then((response: any) => {
+      console.log('Réponse de l\'API:', response); // Affiche toute la réponse pour analyse
+      // Assigne directement la réponse (sans vérifier `results` pour l'instant)
+      this.pokemonetype = response; 
+      console.log('Pokemon types:', this.pokemonetype); // Affiche ce que contient pokemonetype
+      this.isLoading = false; // Terminé le chargement
+    })
+    .catch((error) => {
+      console.error('Erreur lors de la requête API:', error); // Affiche l'erreur si la requête échoue
+      this.isLoading = false; // Terminé le chargement en cas d'erreur
+    });
+
 
     // On charge la page si elle n'existe pas ou si on n'a pas atteint la dernière
     if (!this.pokemonList || this.pokemonList.last_page >= page) {
@@ -51,6 +67,7 @@ export class PokemonListComponent {
       this.isLoading = false; // Si la page est déjà chargée ou hors limite
     }
   }
+  
   @HostListener('window:scroll', ['$event'])
   onScroll(event: any) {
     const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;

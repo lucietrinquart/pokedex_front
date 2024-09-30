@@ -1,14 +1,35 @@
 @if (pokemon){
     <h1 class="flex items-center mb-6"><a [routerLink]="['/']" class="btn btn-circle btn-primary mr-2">"<-</a> {{pokemon.name}}</h1>
-    <div class="flex items-center justify-center p-4 relative">
+    <div [ngClass]="getBackgroundClass()" class="flex items-center justify-center p-4 relative">
+      <!-- L'image du Pokémon -->
       <img [src]="pokemon.default_variety.sprites?.artwork_url" [alt]="pokemon.name" class="w-full max-w-md">
-      <div class="absolute top-0 left-0 p-4 flex flex-col gap-2">
-        @for (type of pokemon.default_variety.types; track type.id){
-          <img [src]="type.sprite_url" [alt]="type.name" class="h-6">
-        }
+    
+      <!-- Les types du Pokémon en haut à gauche -->
+      
+    
+      <!-- Le numéro et le nom du Pokémon en bas au centre -->
+      <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center text-white p-4">
+        <p class="opacity-90">{{pokemon.id}}</p>
+        <p>{{pokemon.name}}</p>
+        <div class="flex">
+              @for (type of pokemon.default_variety.types; track type.id) {
+                <img [src]="type.sprite_url" [alt]="type.name" class="h-6">
+              }
+              <button (click)="playCry()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
+                </svg>
+              </button>
+          
+          </div>
+          
+        
+        <!-- L'audio du cri -->
+        <audio #audioPlayer [src]="pokemon.default_variety.cry_url" preload="auto"></audio>
+        
       </div>
-
     </div>
+    
     <div class="flex items-center justify-center gap-3">
       <img [src]="pokemon.default_variety.sprites?.front_url" alt="front sprite" class="h-24 w-24 p-1 bg-neutral rounded-lg">
       <img [src]="pokemon.default_variety.sprites?.front_shiny_url" alt="front sprite shiny" class="h-24 w-24 p-1 bg-neutral rounded-lg">
@@ -42,9 +63,13 @@
     @if(pokemonevolution){
         <div>
             <h2>Évolution</h2>
-            @for(evolution_avant of pokemonevolution.evolution_apres; track evolution_avant.id){
+            @for(evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id){
                 <img [src]="evolution_avant.evolves_to.sprites?.artwork_url">
             }
+            @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id){
+                <img [src]="evolution_apres.evolves_to.sprites?.artwork_url">
+            }
+           
         </div>
     }
 

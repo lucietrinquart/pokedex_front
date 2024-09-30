@@ -9,10 +9,29 @@
         </svg>
     </button>
 </div>
+<div>
+  <h1>{{ 'pokemon_list' | transloco }}</h1> <!-- Change this line -->
+  <section class="p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    @for (pokemon of pokemonList?.data; track pokemon.id){
+      <a [routerLink]="['/pokemon/'+pokemon.id]">
+        <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+      </a>
+    }
+  </section>
+</div>
 <div class="flex justify-center space-x-4">
-    <div class="bg-noir flex-2 w-32">
-        <!-- Contenu -->
-    </div>
+    <!-- Conteneur du slider avec overflow pour défiler horizontalement -->
+    <div class="bg-noir flex w-full max-w-[600px] overflow-x-auto"> <!-- Définit une largeur maximale -->
+      <div class="flex whitespace-nowrap items-center"> <!-- Ajoute items-center pour aligner les images correctement -->
+        @for (type of pokemonetype; track type.id) {
+          <div class="type-slide inline-block">
+            <!-- Classe Tailwind pour des images beaucoup plus grandes -->
+            <img [src]="type.sprite_url" [alt]="type.name" class="w-[500px] object-contain mx-2"> <!-- Largeur fixée à 500px -->
+          </div>
+        }
+      </div>
+  </div>
+  
     <div class="flex-none w-14 items-center justify-center">
         <button class="my-1 text-sm font-sans bg-gradient-to-r from-autrerouge to-rouge p-1 text-white rounded">
         </button>
@@ -22,7 +41,6 @@
         </button>
     </div>
 </div>
-
 
   
 
