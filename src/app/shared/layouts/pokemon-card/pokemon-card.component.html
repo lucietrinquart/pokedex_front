@@ -1,14 +1,30 @@
-<div [ngClass]="getBackgroundClass()" class="card clickable w-28 h-40 relative">
+<div [ngClass]="getBackgroundClass()" class="card clickable h-40 relative justify-center items-center">
   <div [ngClass]="getBackgroundColor()" class="absolute inset-0 w-full h-full z-0 backdrop-filter backdrop-brightness-75">
+    <div class="absolute inset-y-0 right-0 w-[50%] overflow-hidden">
+      <svg width="108" height="106" viewBox="0 0 323 319" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M315.626 112.86C299.778 64.6152 268.277 30.7664 221.329 11.2672C213.619 8.06391 205.667 5.54038 197.425 4.02254C191.069 2.34639 184.582 1.48038 178.058 0.828546C158.485 -1.12696 139.193 0.353638 120.227 5.54038C86.5044 14.7592 58.5875 32.9826 36.6908 60.1455C16.8568 84.7569 5.40445 112.879 2.14701 144.316C1.94167 146.29 2.50169 146.486 4.21908 146.486C35.3001 146.439 66.3811 146.43 97.4621 146.495C99.4034 146.495 100.094 145.983 100.561 144.065C108.037 113.233 138.987 92.7465 170.46 97.7005C195.568 101.649 215.794 120.133 221.655 144.549C221.991 145.955 222.486 146.514 224.054 146.486C228.727 146.409 233.399 146.42 238.075 146.432H238.076C240.181 146.437 242.286 146.442 244.392 146.439C250.412 146.43 256.432 146.416 262.453 146.402C268.473 146.388 274.493 146.374 280.513 146.365L319.453 146.448C322.263 146.448 322.3 146.448 321.982 143.608C320.806 133.16 318.921 122.852 315.636 112.851L315.626 112.86ZM318.977 172.242C310.428 172.286 301.878 172.304 293.328 172.323C289.054 172.332 284.779 172.342 280.504 172.354C280.322 172.346 280.139 172.337 279.956 172.327C279.492 172.304 279.025 172.28 278.563 172.28C275.272 172.28 271.981 172.28 268.689 172.281H268.689C253.879 172.284 239.065 172.286 224.25 172.233C222.551 172.233 221.991 172.717 221.609 174.356C214.291 205.309 182.949 226.456 151.578 220.907C124.772 216.176 107.682 200.187 100.365 173.956C100.029 172.764 99.6648 172.233 98.2741 172.242C66.0358 172.289 33.7974 172.289 1.55908 172.242C0.187038 172.242 -0.102304 172.578 0.0283665 173.919C0.78439 181.657 1.92309 189.339 3.97649 196.835C19.5917 253.992 55.5821 292.227 111.743 311.241C133.107 318.477 155.275 320.162 177.703 317.723C184.788 316.95 191.844 315.897 198.704 313.867C198.822 313.855 198.94 313.849 199.058 313.843L199.059 313.843H199.06C199.298 313.83 199.534 313.818 199.759 313.756C241.079 302.721 273.354 279.255 296.315 243.283C309.858 222.052 317.633 198.744 320.051 173.676C320.144 172.717 320.163 172.242 318.968 172.252L318.977 172.242ZM161.211 122.666C181.773 122.731 197.92 139.297 197.864 160.249H197.874C197.818 179.739 180.887 196.146 160.959 196.025C140.425 195.904 124.241 179.282 124.306 158.396C124.362 138.85 141.153 122.591 161.211 122.666Z" fill="url(#paint0_linear_144_781)" fill-opacity="0.5"/>
+        <defs>
+          <linearGradient id="paint0_linear_144_781" x1="161.09" y1="122.665" x2="161.09" y2="196.026" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#EBEBEB"/>
+            <stop offset="1" stop-color="#EBEBEB" stop-opacity="0.15"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
   </div>
-
-  <div class="relative flex flex-col items-center gap-3 h-full w-full z-10">
-    <div class="relative">
-      <img [src]="pokemon.default_variety.sprites?.artwork_url" [alt]="pokemon.name" class="h-24 -mt-8 object-contain">
+  
+  <div class="relative flex flex-col items-center h-full w-full z-10 justify-center">
+    <div class="relative justify-center items-center">
+      <img [src]="pokemon.default_variety.sprites?.artwork_url" [alt]="pokemon.name" class="h-24 -mt-8 object-contain justify-center items-center">
     </div>
     <p class="text-white font-police">{{ pokemon.name }}</p>
     <div>
-      <p class="text-white font-police">N°{{ pokemon.id }}</p>
+      <p class="text-white font-police">#{{ pokemon.id }}</p>
     </div>
+    <div class="flex">
+      @for (type of pokemon.default_variety.types; track type.id) {
+        <img [src]="type.sprite_url" [alt]="type.name" class="h-3">
+      }
+  </div>
   </div>
 </div>

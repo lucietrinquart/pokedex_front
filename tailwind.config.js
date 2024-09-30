@@ -69,5 +69,10 @@ module.exports = {
       },
   },
   },
+  safelist: [
+    {
+      pattern: /(grass|fire|water|electric|ice|normal|fighting|poison|ground|flying|psychic|bug|rock|ghost|dragon|dark|steel|fairy)/,
+    },
+  ],
   plugins: [],
 }
