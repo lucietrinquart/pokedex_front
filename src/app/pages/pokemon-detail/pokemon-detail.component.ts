@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import { PokemonVariety } from '../../shared/interfaces/pokemon-variety';
 import { PokemonChain } from '../../shared/interfaces/pokemon-chain';
 import { Move } from '../../shared/interfaces/move';
+import { Ability } from '../../shared/interfaces/ability';
 
 
 @Component({
@@ -26,12 +27,12 @@ export class PokemonDetailComponent {
     
     if (this.pokemon?.default_variety?.types && this.pokemon.default_variety.types.length > 1) {
       const primaryType = this.pokemon.default_variety.types[0].name.toLowerCase();
-      const className = `bg-img-${primaryType}`;
+      const className = `bg-img-detail-${primaryType}`;
       console.log(className)
       const className1 = `bg-img-normal`;
-      const className2 = `bg-img-fire`;
-      const className3 = `bg-img-water`;
-      const className4 = `bg-img-grass`;
+      const className2 = `bg-img-detailfire`;
+      const className3 = `bg-img-detailwater`;
+      const className4 = `bg-img-detailgrass`;
       const className5 = `bg-img-electric`;
       const className6 = `bg-img-ice`;
       const className7 = `bg-img-fighting`;
@@ -52,7 +53,7 @@ export class PokemonDetailComponent {
     else if (this.pokemon?.default_variety?.types && this.pokemon.default_variety.types.length > 0) {
       const primaryType = this.pokemon.default_variety.types[0].name.toLowerCase();
 
-      const className = `bg-img-${primaryType} bg-contain bg-center`;
+      const className = `bg-img-detail-${primaryType} bg-contain bg-center`;
       return className;
     }
     return '';
@@ -84,6 +85,7 @@ export class PokemonDetailComponent {
             .then((response: PokemonChain) => {
               this.pokemonevolution = response; // Stocker les données d'évolution dans une propriété distincte
             })
+
             
       }
 

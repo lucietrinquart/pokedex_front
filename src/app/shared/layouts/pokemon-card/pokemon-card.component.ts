@@ -14,7 +14,7 @@ export class PokemonCardComponent{
     
     if (this.pokemon?.default_variety?.types && this.pokemon.default_variety.types.length > 1) {
       const primaryType = this.pokemon.default_variety.types[0].name.toLowerCase();
-      const className = `bg-img-${primaryType} bg-contain bg-center`;
+      const className = `bg-img-${primaryType} bg-contain bg-center shadow-black`;
       console.log(className);
       const className1 = `bg-img-normal`;
       const className2 = `bg-img-fire`;
@@ -40,7 +40,7 @@ export class PokemonCardComponent{
     else if (this.pokemon?.default_variety?.types && this.pokemon.default_variety.types.length > 0) {
       const primaryType = this.pokemon.default_variety.types[0].name.toLowerCase();
 
-      const className = `bg-img-${primaryType} bg-contain bg-center`;
+      const className = `bg-img-${primaryType} bg-contain bg-center shadow-lg shadow-black`;
       return className;
     }
     return '';
