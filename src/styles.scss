@@ -131,3 +131,20 @@
       background-image: url('/assets/fairy.jpg');
     }
   }
+
+.border-blur-effect {
+    position: relative;
+}
+
+.border-blur-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid rgba(255, 165, 0, 0.5); /* Couleur orange semi-transparente */
+    border-radius: inherit; /* Utilise les coins arrondis définis par Tailwind */
+    filter: blur(4px); /* Applique l'effet de flou */
+    z-index: -1; /* Place l'effet derrière le contenu */
+}

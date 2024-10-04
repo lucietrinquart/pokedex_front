@@ -72,35 +72,35 @@
         <div class="flex">
           <p>PV</p>
           <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" :style=" width:{{pokemon.default_variety.base_experience}}%"></div>
+            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_experience}}%"></div>
           </div>
   
         </div>
         <div class="flex">
           <p>HP</p>
           <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" :style=" width:{{pokemon.default_variety.base_stat_hp}}%"></div>
+            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_hp}}%"></div>
           </div>
   
         </div>
         <div class="flex">
           <p>Attaque</p>
           <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" :style=" width:{{pokemon.default_variety.base_stat_attack}}%"></div>
+            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_attack}}%"></div>
           </div>
   
         </div>
         <div class="flex">
           <p>Défense</p>
           <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" :style=" width:{{pokemon.default_variety.base_stat_defense}}%"></div>
+            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_defense}}%"></div>
           </div>
   
         </div>
         <div class="flex">
           <p>Speed</p>
           <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" :style=" width:{{pokemon.default_variety.base_stat_speed}}%"></div>
+            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_speed}}%"></div>
           </div>
   
         </div>
@@ -114,28 +114,78 @@
             <li>{{pokemon.default_variety.base_stat_speed}}</li> -->
 
     </div>
+    
+
+
+
+    @if (pokemon) {
+      @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
+      <!-- Affichage de l'évolution précédente (Evolution Avant) -->
+      <div [ngClass]="getBackgroundClass()">
+        <div class="relative flex items-center justify-center">
+          <div class="flex items-center justify-center p-4 relative">
+            <div class="relative z-10">
+              @if (pokemonevolution) {
+                  <div>
+                    <h2 class="text-center text-white">Évolutions Précédentes</h2>
+                    @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
+                      @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
+                        <img [src]="evolution_avant.pokemon_variety.sprites?.artwork_url" class="scale-50">
+                      }
+
+                    }
+                  </div>
+                
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    
+      <!-- Affichage de l'évolution suivante (Evolution Après) -->
+      @if (pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
+
+      <div [ngClass]="getBackgroundClass()">
+        <div class="relative flex items-center justify-center">
+          <div class="flex items-center justify-center p-4 relative">
+            <div class="relative z-10">
+              @if (pokemonevolution) {
+                  <div>
+                    <h2 class="text-center text-white">Évolutions Suivantes</h2>
+                    @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id){
+                      <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
+                  }
+                  </div>
+                
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    }
 
     <div>
         <h1>Attaque:</h1>
-        <ul>
-            <li *ngFor="let move of Moves">
-              {{ move.name }} - PP: {{ move.pp }}
-            </li>
+        <div class="flex justify-center">
+          <ul class="grid grid-cols-2 gap-4 w-full max-w-lg px-4">
+              @for(move of visibleMoves; track move.id){
+                  <li [ngClass]="getBackgroundbordeur()">
+                      {{ move.name }}
+                  </li>
+                }
           </ul>
+      </div>
+
+      <div class="flex justify-center mt-4">
+        <button (click)="toggleShowMore()" [ngClass]="getBackgroundbouton()">
+          {{ showAll ? 'Voir moins' : 'Voir plus' }}
+      </button>
+
     </div>
-
-    @if(pokemonevolution){
-        <div>
-            <h2>Évolution</h2>
-            @for(evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id){
-                <img [src]="evolution_avant.evolves_to.sprites?.artwork_url">
-            }
-            @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id){
-                <img [src]="evolution_apres.evolves_to.sprites?.artwork_url">
-            }
-           
-        </div>
-    }
-
+      
+      
+    </div>
 
   }
