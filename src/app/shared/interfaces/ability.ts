@@ -1,3 +1,4 @@
 export interface Ability {
-    id : bigint
+    id : bigint,
+    name: string
 }
