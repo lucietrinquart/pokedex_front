@@ -5,5 +5,6 @@ import {PokemonVariety} from "./pokemon-variety";
 export interface PokemonChain {
     pokemon: Pokemon,
     evolution_avant: PokemonEvolution[],
-    evolution_apres: PokemonEvolution[]
+    evolution_apres: PokemonEvolution[],
+    previous_evolutions: PokemonEvolution[]
 }

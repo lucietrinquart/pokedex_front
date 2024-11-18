@@ -30,7 +30,7 @@ export interface PokemonVariety {
     front_url?: string;
   },
   types?: Type[]; // <- here
-  abilities?: Ability;
+  abilities?: Ability[];
   updated_at: string;
   weight: number;
 }

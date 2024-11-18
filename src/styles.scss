@@ -148,3 +148,20 @@
     filter: blur(4px); /* Applique l'effet de flou */
     z-index: -1; /* Place l'effet derrière le contenu */
 }
+
+
+.same-size {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+
+}
+
+.text-center {
+  text-align: center;
+}
+
+.grid-center {
+  justify-items: center;
+}

@@ -10,12 +10,10 @@ export class PokemonCardComponent{
   @Input() pokemon!: Pokemon;
 
   getBackgroundClass(): string {
-    console.log(this.pokemon?.default_variety);
     
     if (this.pokemon?.default_variety?.types && this.pokemon.default_variety.types.length > 1) {
       const primaryType = this.pokemon.default_variety.types[0].name.toLowerCase();
       const className = `bg-img-${primaryType} bg-contain bg-center shadow-black`;
-      console.log(className);
       const className1 = `bg-img-normal`;
       const className2 = `bg-img-fire`;
       const className3 = `bg-img-water`;
@@ -46,12 +44,10 @@ export class PokemonCardComponent{
     return '';
   }
   getBackgroundColor(): string {
-    console.log(this.pokemon?.default_variety);
     
     if (this.pokemon?.default_variety?.types && this.pokemon.default_variety.types.length > 0) {
       const primaryType = this.pokemon.default_variety.types[0].name.toLowerCase();
       const className = `bg-gradient-to-b from-transparent to-${primaryType}-500 opacity-90 rounded-lg`;
-      console.log(className);
       return className;
     }
     return '';
