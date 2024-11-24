@@ -17,79 +17,43 @@ export class PokemonListComponent {
   isLoading: boolean = false;
   pokemonetype: Type[] = []; 
   selectedType: any = null;
-  searchTerm: string = '';
+  searchResults: any[] = [];
+  searchQuery: string = '';
 
   constructor(public apiService: ApiService) {
     // Au démarrage, charge tous les Pokémon
     this.loadPokemonList();
     this.loadTypes();
   }
-  async handleSearch(event: Event) {
-    console.log("handleSearch appelé", event); // Debug
-    const searchInput = event.target as HTMLInputElement;
-    this.searchTerm = searchInput.value;
-    console.log("Terme de recherche:", this.searchTerm); // Debug
-    
-    if (this.searchTerm.trim() === '') {
-      console.log("Recherche vide, rechargement de la liste"); // Debug
-      this.loadPokemonList();
-      return;
-    }
 
-    try {
-      this.isLoading = true;
-      console.log("Appel API avec:", `/pokemon/search?q=${this.searchTerm}`); // Debug
-      const results = await this.apiService.requestApi(`/pokemon/search?q=${this.searchTerm}`, 'GET');
-      console.log("Résultats reçus:", results); // Debug
-      
-      if (!results || (Array.isArray(results) && results.length === 0)) {
-        console.log("Aucun résultat trouvé"); // Debug
-        this.pokemonList = {
-          data: [],
-          current_page: 1,
-          last_page: 1,
-          first_page_url: '',
-          from: 0,
-          last_page_url: '',
-          path: '',
-          per_page: 0,
-          to: 0,
-          total: 0
-        };
-        return;
-      }
-      
-      // Adapter les résultats au format Paginate
-      this.pokemonList = {
-        data: Array.isArray(results) ? results : [results],
-        current_page: 1,
-        last_page: 1,
-        first_page_url: '',
-        from: 1,
-        last_page_url: '',
-        path: '',
-        per_page: Array.isArray(results) ? results.length : 1,
-        to: Array.isArray(results) ? results.length : 1,
-        total: Array.isArray(results) ? results.length : 1
-      };
-    } catch (error) {
-      console.error('Erreur lors de la recherche:', error);
-    } finally {
-      this.isLoading = false;
+  reloadPage() {
+    window.location.reload();
+
+  }
+
+  handleSearch() {
+    if (this.searchQuery.trim()) {
+      console.log('Searching for:', this.searchQuery);
+      this.searchPokemon(this.searchQuery);
     }
   }
 
-  // Méthode pour la recherche au clic sur le bouton
-  searchPokemon() {
-    console.log("searchPokemon appelé"); // Debug
-    const searchInput = document.getElementById('site-search') as HTMLInputElement;
-    if (searchInput) {
-      console.log("Input trouvé, valeur:", searchInput.value); // Debug
-      this.handleSearch({ target: searchInput } as unknown as Event);
-    } else {
-      console.log("Input non trouvé"); // Debug
-    }
+  searchPokemon(query: string) {
+    this.apiService.requestApi('/pokemon/search', "GET", {query: query})
+      .then(reponses => {
+        console.log('Raw API response:', reponses);
+        if (Array.isArray(reponses)) {
+          this.searchResults = reponses;
+          console.log('Search results updated:', this.searchResults);
+        } else {
+          console.error('Response is not an array:', reponses);
+        }
+      })
+      .catch(error => {
+        console.error('API error:', error);
+      });
   }
+
 
   // Nouvelle méthode séparée pour charger les types
   loadTypes() {

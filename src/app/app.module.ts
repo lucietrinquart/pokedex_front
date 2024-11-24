@@ -10,6 +10,7 @@ import { PokemonDetailComponent } from './pages/pokemon-detail/pokemon-detail.co
 import { TranslocoRootModule } from './transloco-root.module';
 import { LangSelectorComponent } from './shared/layouts/lang-selector/lang-selector.component'; // Import du provider
 import { FormsModule } from '@angular/forms';
+import { PokemonSearchComponent } from './pages/pokemon-search/pokemon-search.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     PokemonListComponent,
     PokemonCardComponent,
     PokemonDetailComponent,
-    LangSelectorComponent
+    LangSelectorComponent,
+    PokemonSearchComponent
   ],
   imports: [
     BrowserModule,

@@ -84,6 +84,7 @@ module.exports = {
           700: '#ad6a89',
         },         
       },
+      
   },
   },
   safelist: [
