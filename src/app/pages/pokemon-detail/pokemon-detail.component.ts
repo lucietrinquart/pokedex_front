@@ -48,13 +48,10 @@ export class PokemonDetailComponent {
       }
     });
   }
+
   
 
 
-  ngOnInit() {
-    this.visibleMoves = this.Moves.slice(0, 6);
-    console.log("visible move", this.visibleMoves)
-  }
   loadGameVersions() {
     this.apiService.requestApi('/version').then((response: GameVersion[]) => {
       this.gameVersions = response;
@@ -106,6 +103,53 @@ export class PokemonDetailComponent {
         this.visibleMoves = response.moves.slice(0, 6);
         this.showAll = false;
       });
+  }
+  ngOnInit(pokemonId: string) {
+    this.apiService.requestApi(`/pokemon/${pokemonId}/evolution`).then((response: PokemonChain) => {
+      this.pokemonevolution = this.processEvolutions(response);
+    });
+  }
+
+  private processEvolutions(chain: PokemonChain): PokemonChain {
+    // Traitement des évolutions suivantes (code existant)
+    chain.evolution_apres = chain.evolution_apres.map(evolution => {
+      if (evolution.next_evolutions === undefined) {
+        evolution.next_evolutions = [];
+        const nextEvo = this.findNextEvolution(evolution.evolves_to.id, chain);
+        if (nextEvo.length > 0) {
+          evolution.next_evolutions = nextEvo;
+        }
+      }
+      return evolution;
+    });
+
+    // Traitement des évolutions précédentes
+    chain.evolution_avant = chain.evolution_avant.map(evolution => {
+      if (evolution.previous_evolutions === undefined) {
+        evolution.previous_evolutions = [];
+        const prevEvo = this.findPreviousEvolution(evolution.pokemon_variety.id, chain);
+        if (prevEvo.length > 0) {
+          evolution.previous_evolutions = prevEvo;
+        }
+      }
+      return evolution;
+    });
+
+    return chain;
+  }
+
+  private findPreviousEvolution(pokemonId: number, chain: PokemonChain): PokemonEvolution[] {
+    // Rechercher dans evolution_avant les évolutions qui ont evolves_to_id égal à pokemonId
+    return chain.evolution_avant.filter(evo => 
+      evo.evolves_to?.id === pokemonId
+    );
+  }
+
+  private findNextEvolution(pokemonId: number, chain: PokemonChain): PokemonEvolution[] {
+    // Rechercher dans evolution_apres les évolutions qui ont pokemon_variety_id égal à pokemonId
+    return chain.evolution_apres.filter(evo => 
+      evo.pokemon_variety?.id === pokemonId
+    );
   }
   
   onVersionChange(versionId: number) {

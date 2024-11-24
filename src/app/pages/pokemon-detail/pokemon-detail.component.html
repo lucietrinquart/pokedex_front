@@ -154,6 +154,39 @@
   } -->
     @if (pokemon && pokemonevolution) {
       @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
+        <div [ngClass]="getBackgroundClass()">
+          <div class="relative flex items-center justify-center">
+            <div class="flex items-center justify-center p-4 relative">
+              <div class="relative z-10">
+                <div>
+                  <h2 class="text-center text-white">Évolutions Précédentes</h2>
+                  <div class="flex flex-row items-center gap-4">
+                    @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
+                      <div class="flex flex-col items-center">
+                        <!-- Évolutions précédentes des précédentes -->
+                        @if (evolution_avant.previous_evolutions?.length) {
+                          <div class="flex flex-col items-center">
+                            @for(prev_evolution of evolution_avant.previous_evolutions; track prev_evolution.id) {
+                              @if (prev_evolution.pokemon_variety && prev_evolution.pokemon_variety.sprites) {
+                                <img [src]="prev_evolution.pokemon_variety.sprites.artwork_url" class="scale-50">
+                              }
+                            }
+                          </div>
+                        }
+                        <!-- Évolution actuelle -->
+                        @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
+                          <img [src]="evolution_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+      @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
       <div [ngClass]="getBackgroundClass()">
         <div class="relative flex items-center justify-center">
           <div class="flex items-center justify-center p-4 relative">
@@ -197,6 +230,34 @@
       </div>
     }
     }
+    @if (pokemonevolution && pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
+      <div [ngClass]="getBackgroundClass()">
+        <div class="relative flex items-center justify-center">
+          <div class="flex items-center justify-center p-4 relative">
+            <div class="relative z-10">
+              <div>
+                <h2 class="text-center text-white">Évolutions Suivantes</h2>
+                <div class="flex flex-row items-center gap-4">
+                  @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id) {
+                    <div class="flex flex-col items-center">
+                      <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
+                      @if (evolution_apres.next_evolutions?.length) {
+                        <div class="flex flex-col items-center">
+                          @for(next_evolution of evolution_apres.next_evolutions; track next_evolution.id) {
+                            <img [src]="next_evolution.evolves_to.sprites?.artwork_url" class="scale-50">
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    
 
 
     <div>

@@ -27,5 +27,8 @@ export interface PokemonEvolution {
     time_of_day: string,
     turn_upside_down: boolean,
     created_at: string,
-    updated_at: string
+    updated_at: string,
+    previousEvolutions: PokemonEvolution[],
+    next_evolutions?: PokemonEvolution[],
+    previous_evolutions?: PokemonEvolution[]
 }
