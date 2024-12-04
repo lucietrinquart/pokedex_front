@@ -20,6 +20,7 @@
     "@angular/router": "^18.2.0",
     "@jsverse/transloco": "^7.5.0",
     "rxjs": "~7.8.0",
+    "swiper": "^11.1.15",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"

@@ -9,7 +9,7 @@
       </div>
       <div class="relative flex items-center justify-center">
         <div class="absolute inset-0 flex items-center justify-center z-0 scale-50">
-          <svg width="323" height="319" viewBox="0 0 323 319" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="323" height="319" viewBox="0 0 323 319" fill="none" xmlns="http://www.w3.org/2000/svg" class="scale-150">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M315.626 112.86C299.778 64.6152 268.277 30.7664 221.329 11.2672C213.619 8.06391 205.667 5.54038 197.425 4.02254C191.069 2.34639 184.582 1.48038 178.058 0.828546C158.485 -1.12696 139.193 0.353638 120.227 5.54038C86.5044 14.7592 58.5875 32.9826 36.6908 60.1455C16.8568 84.7569 5.40445 112.879 2.14701 144.316C1.94167 146.29 2.50169 146.486 4.21908 146.486C35.3001 146.439 66.3811 146.43 97.4621 146.495C99.4034 146.495 100.094 145.983 100.561 144.065C108.037 113.233 138.987 92.7465 170.46 97.7005C195.568 101.649 215.794 120.133 221.655 144.549C221.991 145.955 222.486 146.514 224.054 146.486C228.727 146.409 233.399 146.42 238.075 146.432H238.076C240.181 146.437 242.286 146.442 244.392 146.439C250.412 146.43 256.432 146.416 262.453 146.402C268.473 146.388 274.493 146.374 280.513 146.365L319.453 146.448C322.263 146.448 322.3 146.448 321.982 143.608C320.806 133.16 318.921 122.852 315.636 112.851L315.626 112.86ZM318.977 172.242C310.428 172.286 301.878 172.304 293.328 172.323C289.054 172.332 284.779 172.342 280.504 172.354C280.322 172.346 280.139 172.337 279.956 172.327C279.492 172.304 279.025 172.28 278.563 172.28C275.272 172.28 271.981 172.28 268.689 172.281H268.689C253.879 172.284 239.065 172.286 224.25 172.233C222.551 172.233 221.991 172.717 221.609 174.356C214.291 205.309 182.949 226.456 151.578 220.907C124.772 216.176 107.682 200.187 100.365 173.956C100.029 172.764 99.6648 172.233 98.2741 172.242C66.0358 172.289 33.7974 172.289 1.55908 172.242C0.187038 172.242 -0.102304 172.578 0.0283665 173.919C0.78439 181.657 1.92309 189.339 3.97649 196.835C19.5917 253.992 55.5821 292.227 111.743 311.241C133.107 318.477 155.275 320.162 177.703 317.723C184.788 316.95 191.844 315.897 198.704 313.867C198.822 313.855 198.94 313.849 199.058 313.843L199.059 313.843H199.06C199.298 313.83 199.534 313.818 199.759 313.756C241.079 302.721 273.354 279.255 296.315 243.283C309.858 222.052 317.633 198.744 320.051 173.676C320.144 172.717 320.163 172.242 318.968 172.252L318.977 172.242ZM161.211 122.666C181.773 122.731 197.92 139.297 197.864 160.249H197.874C197.818 179.739 180.887 196.146 160.959 196.025C140.425 195.904 124.241 179.282 124.306 158.396C124.362 138.85 141.153 122.591 161.211 122.666Z" fill="url(#paint0_linear_144_781)" fill-opacity="0.5"/>
             <defs>
               <linearGradient id="paint0_linear_144_781" x1="161.09" y1="122.665" x2="161.09" y2="196.026" gradientUnits="userSpaceOnUse">
@@ -69,43 +69,63 @@
           <p>mètre</p>
           <p>poids</p>
         </div>
+        <h1 class="justify-center text-center font-bold text-3xl">Statistique</h1>
+        <div class="container mx-auto px-10">
+          <div class="space-y-4">
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_experience}}%</p>
+                <p class="text-sm">PV</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_experience}}%"></div>
+              </div>
+            </div>
+            
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_hp}}%</p>
+                <p class="text-sm">HP</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_hp}}%"></div>
+              </div>
+            </div>
 
-        <h1 class="justify-center text-center">Statistique</h1>
-        <div class="flex">
-          <p>PV</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_experience}}%"></div>
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_attack}}%</p>
+                <p class="text-sm">Attaque</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_attack}}%"></div>
+              </div>
+            </div>
+
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_defense}}%</p>
+                <p class="text-sm">Défense</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_defense}}%"></div>
+              </div>
+            </div>
+
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_speed}}%</p>
+                <p class="text-sm">Speed</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_speed}}%"></div>
+              </div>
+            </div>
+            <!-- Répéter le même modèle pour les autres stats -->
           </div>
-  
         </div>
-        <div class="flex">
-          <p>HP</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_hp}}%"></div>
-          </div>
-  
-        </div>
-        <div class="flex">
-          <p>Attaque</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_attack}}%"></div>
-          </div>
-  
-        </div>
-        <div class="flex">
-          <p>Défense</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_defense}}%"></div>
-          </div>
-  
-        </div>
-        <div class="flex">
-          <p>Speed</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_speed}}%"></div>
-          </div>
-  
-        </div>
+
+        
         
 
 
@@ -119,39 +139,7 @@
             <li>{{pokemon.default_variety.base_stat_speed}}</li> -->
 
     </div>
-    <div>
-      <h1>Talents</h1>
-      @if (pokemon.default_variety.abilities) {
-        @for (ability of pokemon.default_variety.abilities; track ability.id) {
-          <p>{{ ability.name }}</p>
-        }
-      }
-    </div>
-    
-    <!-- @if (pokemon) {
-      @if (pokemonevolution.previous_evolutions && pokemonevolution.previous_evolutions.length > 0) {
-      <div [ngClass]="getBackgroundClass()">
-        <div class="relative flex items-center justify-center">
-          <div class="flex items-center justify-center p-4 relative">
-            <div class="relative z-10">
-              @if (pokemonevolution) {
-                  <div>
-                    <h2 class="text-center text-white">Évolutions Précédentes</h2>
-                    @for (evolution_avant_avant of pokemonevolution.previous_evolutions; track evolution_avant_avant.id) {
-                      @if (evolution_avant_avant.pokemon_variety && evolution_avant_avant.pokemon_variety.sprites) {
-                        <img [src]="evolution_avant_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
-                    }
-                  }
-                  </div>
-              
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    }
-
-  } -->
+  
     @if (pokemon && pokemonevolution) {
       @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
         <div [ngClass]="getBackgroundClass()">
@@ -186,49 +174,7 @@
           </div>
         </div>
       }
-      @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
-      <div [ngClass]="getBackgroundClass()">
-        <div class="relative flex items-center justify-center">
-          <div class="flex items-center justify-center p-4 relative">
-            <div class="relative z-10">
-              @if (pokemonevolution) {
-                  <div>
-                    <h2 class="text-center text-white">Évolutions Précédentes</h2>
-                    @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
-                      @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
-                        <img [src]="evolution_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
-                      }
-                    }
-                  </div>
-                
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    }
-    
-      <!-- Affichage de l'évolution suivante (Evolution Après) -->
-      @if (pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
-
-      <div [ngClass]="getBackgroundClass()">
-        <div class="relative flex items-center justify-center">
-          <div class="flex items-center justify-center p-4 relative">
-            <div class="relative z-10">
-              @if (pokemonevolution) {
-                  <div>
-                    <h2 class="text-center text-white">Évolutions Suivantes</h2>
-                    @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id){
-                      <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
-                  }
-                  </div>
-                
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    }
+        
     }
     @if (pokemonevolution && pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
       <div [ngClass]="getBackgroundClass()">
@@ -261,58 +207,40 @@
 
 
     <div>
-        <h1>Attaque:</h1>
-        <div class="version-selector-container">
-          <label for="version-select" class="block text-sm font-medium text-gray-700 mb-2">
-            Sélectionner une version
-          </label>
-          <div class="relative">
-            <select 
-              id="version-select"
-              [(ngModel)]="selectedVersion" 
-              (change)="onVersionChange(selectedVersion)"
-              class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
-            >
-              <option [value]="version.id" *ngFor="let version of gameVersions">
-                {{version.generic_name}} (Gen. {{version.generation}})
-              </option>
-            </select>
-          </div>
+      <h1 class="justify-center text-center font-bold text-3xl">Attaques</h1>
+      <div class="flex justify-center my-4">
+        <div class="relative">
+          <select
+            id="version-select"
+            [(ngModel)]="selectedVersion"
+            (change)="onVersionChange(selectedVersion)"
+            class="bg-gray-200 border-0 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm text-center">
+            <option [value]="version.id" *ngFor="let version of gameVersions">
+              {{version.generic_name}} (Gen. {{version.generation}})
+            </option>
+          </select>
         </div>
+      </div>
         
         <!-- Affichage des attaques avec style amélioré -->
-        <div class="moves-container mt-6" *ngIf="versionMoves">
-          <h3 class="text-xl font-semibold mb-4">
-            Attaques pour {{versionMoves.version.generic_name}}
-          </h3>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div 
-              class="move-card bg-white shadow rounded-lg p-4 hover:shadow-lg transition-shadow"
-              *ngFor="let moveInfo of visibleMoves">
-              <h4 class="text-lg font-medium text-gray-900 mb-2">
-                {{moveInfo.move.name}}
+        <div class="moves-container mt-6 rounded-full" *ngIf="versionMoves">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 rounded-full">
+            <div [ngClass]="getBackgroundColor()" class="bg-white shadow rounded-full p-4 hover:shadow-lg transition-shadow" *ngFor="let moveInfo of visibleMoves">
+              <h4 class="text-lg font-medium mb-2 border-2 rounded-full px-2 py-1 text-center">
+                <span>{{ moveInfo.move.name }}</span>
               </h4>
-              <div class="text-sm text-gray-600">
-                <p class="mb-1">
-                  <span class="font-medium">Méthode:</span> 
-                  {{moveInfo.move.name}}
-                </p>
+              <div class="text-sm">
                 <p *ngIf="moveInfo.level > 0" class="mb-1">
-                  <span class="font-medium">Niveau:</span> 
-                  {{moveInfo.level}}
+                  <span class="font-medium">Niveau:</span> <span>{{ moveInfo.level }}</span>
                 </p>
                 <p class="mb-1" *ngIf="moveInfo.move.power">
-                  <span class="font-medium">Puissance:</span> 
-                  {{moveInfo.move.power}}
+                  <span class="font-medium">Puissance:</span> <span>{{ moveInfo.move.power }}</span>
                 </p>
                 <p class="mb-1" *ngIf="moveInfo.move.accuracy">
-                  <span class="font-medium">Précision:</span> 
-                  {{moveInfo.move.accuracy}}%
+                  <span class="font-medium">Précision:</span> <span>{{ moveInfo.move.accuracy }}%</span>
                 </p>
                 <p class="mb-1">
-                  <span class="font-medium">PP:</span> 
-                  {{moveInfo.move.pp}}
+                  <span class="font-medium">PP:</span> <span>{{ moveInfo.move.pp }}</span>
                 </p>
               </div>
             </div>

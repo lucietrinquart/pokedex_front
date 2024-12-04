@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Pokemon } from "../../shared/interfaces/pokemon";
 import { ApiService } from "../../shared/services/api.service";
 import { ActivatedRoute } from "@angular/router";
@@ -10,6 +10,7 @@ import { Faiblesse } from '../../shared/interfaces/faiblesse';
 import { GameVersion } from '../../shared/interfaces/game-version';
 import { PokemonVersionMoves } from '../../shared/interfaces/pokemon-version-moves';
 import { PokemonEvolution } from '../../shared/interfaces/pokemon-evolution';
+import { SwiperOptions } from 'swiper/types';
 
 @Component({
   selector: 'app-pokemon-detail',
