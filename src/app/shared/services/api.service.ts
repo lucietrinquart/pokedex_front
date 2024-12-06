@@ -239,4 +239,5 @@ export class ApiService {
       window.location.href = res.url;
     }
   }
+
 }

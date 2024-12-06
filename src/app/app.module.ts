@@ -11,6 +11,7 @@ import { TranslocoRootModule } from './transloco-root.module';
 import { LangSelectorComponent } from './shared/layouts/lang-selector/lang-selector.component'; // Import du provider
 import { FormsModule } from '@angular/forms';
 import { PokemonSearchComponent } from './pages/pokemon-search/pokemon-search.component';
+import { ProfilUserComponent } from './pages/profil-user/profil-user.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { PokemonSearchComponent } from './pages/pokemon-search/pokemon-search.co
     PokemonCardComponent,
     PokemonDetailComponent,
     LangSelectorComponent,
-    PokemonSearchComponent
+    PokemonSearchComponent,
+    ProfilUserComponent
   ],
   imports: [
     BrowserModule,

@@ -48,6 +48,11 @@
               </svg>
             </button>
             <audio #audioPlayer [src]="pokemon.default_variety.cry_url" preload="auto"></audio>
+
+            <div>
+            <!--bouton qui permet de rajouter le pokemon de la page dans la table favori-->
+            <button (click)="addToFavorite(pokemon.id)">favori</button>
+            </div>
           
         </div>
       </div>

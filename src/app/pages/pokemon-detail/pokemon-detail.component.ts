@@ -231,4 +231,12 @@ export class PokemonDetailComponent {
     }
     return [];
   }
+
+  addToFavorite(pokemonId: number) {
+    this.apiService.requestApi(`/pokemon/${pokemonId}/add`, 'POST').then((response: any) => {
+      this.abiliti = response;
+    }).catch(error => {
+      console.error('Erreur:', error);
+    });
+  }
 }
