@@ -223,24 +223,24 @@
       </div>
         
         <!-- Affichage des attaques avec style amélioré -->
-        <div class="moves-container mt-6 rounded-full" *ngIf="versionMoves">
+        <div class="moves-container mt-6 rounded-full px-80" *ngIf="versionMoves">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 rounded-full">
-            <div [ngClass]="getBackgroundColor()" class="bg-white shadow rounded-full p-4 hover:shadow-lg transition-shadow" *ngFor="let moveInfo of visibleMoves">
+            <div *ngFor="let moveInfo of visibleMoves">
               <h4 class="text-lg font-medium mb-2 border-2 rounded-full px-2 py-1 text-center">
-                <span>{{ moveInfo.move.name }}</span>
+                {{ moveInfo.move.name }}
               </h4>
               <div class="text-sm">
                 <p *ngIf="moveInfo.level > 0" class="mb-1">
-                  <span class="font-medium">Niveau:</span> <span>{{ moveInfo.level }}</span>
+                  <span class="font-medium">Niveau:</span> {{ moveInfo.level }}
                 </p>
                 <p class="mb-1" *ngIf="moveInfo.move.power">
-                  <span class="font-medium">Puissance:</span> <span>{{ moveInfo.move.power }}</span>
+                  <span class="font-medium">Puissance:</span> {{ moveInfo.move.power }}
                 </p>
                 <p class="mb-1" *ngIf="moveInfo.move.accuracy">
-                  <span class="font-medium">Précision:</span> <span>{{ moveInfo.move.accuracy }}%</span>
+                  <span class="font-medium">Précision:</span> {{ moveInfo.move.accuracy }}%
                 </p>
                 <p class="mb-1">
-                  <span class="font-medium">PP:</span> <span>{{ moveInfo.move.pp }}</span>
+                  <span class="font-medium">PP:</span> {{ moveInfo.move.pp }}
                 </p>
               </div>
             </div>
