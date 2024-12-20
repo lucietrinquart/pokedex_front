@@ -1,5 +1,8 @@
 import { Component, Input} from '@angular/core';
 import { Pokemon } from "../../interfaces/pokemon";
+import { Translation } from "../../interfaces/translation";
+
+import {TranslocoService} from "@jsverse/transloco";
 
 @Component({
   selector: 'app-pokemon-card',
@@ -8,6 +11,7 @@ import { Pokemon } from "../../interfaces/pokemon";
 })
 export class PokemonCardComponent{
   @Input() pokemon!: Pokemon;
+  @Input() reducedSize = false;
 
   getBackgroundClass(): string {
     
@@ -52,4 +56,39 @@ export class PokemonCardComponent{
     }
     return '';
   }
+
+  constructor(private translocoService: TranslocoService) {}
+  
+  getPokemonName(): string {
+    const currentLang = this.translocoService.getActiveLang();
+    
+    // Vérification de l'existence des traductions du Pokémon
+    if (!this.pokemon?.translations) {
+      return this.pokemon?.name || 'Unknown Pokemon';
+    }
+    
+    // Recherche de la traduction correspondant à la langue actuelle
+    const translation = this.pokemon.translations.find(
+      (trans: Translation) => trans.locale === currentLang
+    );
+    
+    // Si une traduction existe et contient un nom, on l'utilise
+    // Sinon on retourne le nom par défaut du Pokémon
+    return translation?.name || this.pokemon.name || 'Unknown Pokemon';
+  }
+
+    
+    getPokemonType(): string {
+      const currentLang = this.translocoService.getActiveLang();
+      
+      if (!this.pokemon?.default_variety?.types?.[0]?.translations) {
+        return this.pokemon?.name || 'Unknown Pokemon';
+      }
+      
+      const translation = this.pokemon.default_variety.types[0].translations.find(
+        (trans: Translation) => trans.locale === currentLang
+      );
+      
+      return translation?.name || this.pokemon.name || 'Unknown Pokemon';
+    }
 }

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {PokemonListComponent} from "./pages/pokemon-list/pokemon-list.component";
 import {PokemonDetailComponent} from "./pages/pokemon-detail/pokemon-detail.component";
 import {PokemonSearchComponent} from "./pages/pokemon-search/pokemon-search.component";
+import {ProfilUserComponent} from "./pages/profil-user/profil-user.component";
+import {ParametreComponent} from "./pages/parametre/parametre.component";
 
 
 import { AppComponent } from './app.component';
@@ -28,6 +30,14 @@ const routes: Routes = [
   {
     path: 'search',
     component: PokemonSearchComponent
+  },
+  {
+    path: 'profil',
+    component: ProfilUserComponent
+  },
+  {
+    path: 'parametre',
+    component: ParametreComponent
   },
 ];
 

@@ -16,6 +16,24 @@ export class ProfilUserComponent implements OnInit{
   companionPokemonsWithNames: any[] = [];
   selectedPokemon: any = null;
   isLoading: boolean = false;
+  pokemonCount: number = 0;
+
+
+  get userName(): string {
+    return this.apiService.user?.name ?? 'Invité';
+  }
+
+  get userdate(): string {
+    const createdAt = this.apiService.user?.created_at ?? null;
+  
+    if (createdAt) {
+      const date = new Date(createdAt);
+      return date.getFullYear().toString(); 
+    }
+  
+    return 'Invité'; 
+  }
+  
 
   constructor(private apiService: ApiService) {}
 
@@ -28,8 +46,32 @@ export class ProfilUserComponent implements OnInit{
       // Charger tous les Pokémon
       this.loadAllPokemons();
     });
+    console.log('État initial des pokemons:', this.companionPokemons);
+    this.getPokemonCount();
   }
 
+  getPokemonCount() {
+    this.apiService.requestApi('/pokemonscompagnons').then((response: any) => {
+      let processedData: PokemonUser[];
+      
+      if (Array.isArray(response)) {
+        processedData = (response.flat() as PokemonUser[]);
+      } else if (response.data && Array.isArray(response.data)) {
+        processedData = (response.data.flat() as PokemonUser[]);
+      } else {
+        processedData = (Object.values(response).flat() as PokemonUser[]);
+      }
+      
+      this.companionPokemons = processedData;
+      this.pokemonCount = this.companionPokemons.length;
+      
+      console.log('Nombre de pokemon:', this.pokemonCount);
+      console.log('Pokemons:', this.companionPokemons);
+      return this.pokemonCount
+    }).catch(error => {
+      console.error('Erreur:', error);
+    });
+  }
   // Fonction pour charger les détails d'un Pokémon
   ajoutcompagnons(pokemonId: number) {
     this.isLoading = true;

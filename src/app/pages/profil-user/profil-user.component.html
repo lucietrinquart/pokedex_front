@@ -24,8 +24,9 @@
   
       <!-- Profile Info -->
       <div class="text-center">
-        <h1 class="text-2xl font-bold">{{ 'sacha' | transloco }}</h1>
-        <p class="text-sm text-gray-600">{{ 'Dresseur' | transloco }}</p>
+<!-- votre-composant.component.html -->
+        <h1 class="text-2xl font-bold">{{ userName }}</h1>
+        <p class="text-sm text-gray-600">{{ 'Dresseur' | transloco }} {{ userdate }}</p>      
       </div>
     </div>
   
@@ -38,7 +39,7 @@
           <div class="flex justify-between items-center">
             <!-- Captured -->
             <div class="text-center">
-              <p class="text-xl font-bold">324</p>
+              <p class="text-xl font-bold">{{getPokemonCount()}}</p>
               <p class="text-xs">{{ 'captures' | transloco }}</p>
               <img src="assets/pokeball_capture.png" alt="Captured" class="w-6 h-6 mx-auto mt-1">
             </div>

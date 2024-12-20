@@ -32,7 +32,7 @@
     
         <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center text-white p-4 z-50">
           <p class="opacity-90">#{{pokemon.id}}</p>
-          <p>{{pokemon.name}}</p>
+          <p>{{getPokemonName()}}</p>
 
   
           <div class="flex">
@@ -51,9 +51,10 @@
 
             <div>
             <!--bouton qui permet de rajouter le pokemon de la page dans la table favori-->
-            <button (click)="addToFavorite(pokemon.id)">favori</button>
-            </div>
-          
+            <button (click)="addToFavorite(pokemon.id)" class="focus:outline-none">
+              <img [src]="favorites[pokemon.id] ? '/assets/Group_1244830742.png' : '/assets/Group.png'" [alt]="favorites[pokemon.id] ? 'Retirer des favoris' : 'Ajouter aux favoris'"class="w-6 h-6" >
+            </button>            
+          </div>
         </div>
       </div>
     </div>
@@ -71,10 +72,10 @@
           <p>{{pokemon.default_variety.weight}}</p>
         </div>
         <div class="flex space-x-10 justify-center">
-          <p>mètre</p>
-          <p>poids</p>
+          <p>{{ 'metre' | transloco }}</p>
+          <p>{{ 'poids' | transloco }}</p>
         </div>
-        <h1 class="justify-center text-center font-bold text-3xl">Statistique</h1>
+        <h1 class="justify-center text-center font-bold text-3xl">{{ 'Statistique' | transloco }}</h1>
         <div class="container mx-auto px-10">
           <div class="space-y-4">
             <div class="flex justify-center items-center">
@@ -90,7 +91,7 @@
             <div class="flex justify-center items-center">
               <div>
                 <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_hp}}%</p>
-                <p class="text-sm">HP</p>
+                <p class="text-sm">{{ 'HP' | transloco }}</p>
               </div>
               <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
                 <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_hp}}%"></div>
@@ -100,7 +101,7 @@
             <div class="flex justify-center items-center">
               <div>
                 <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_attack}}%</p>
-                <p class="text-sm">Attaque</p>
+                <p class="text-sm">{{ 'Attaque' | transloco }}</p>
               </div>
               <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
                 <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_attack}}%"></div>
@@ -110,7 +111,7 @@
             <div class="flex justify-center items-center">
               <div>
                 <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_defense}}%</p>
-                <p class="text-sm">Défense</p>
+                <p class="text-sm">{{ 'Defense' | transloco }}</p>
               </div>
               <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
                 <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_defense}}%"></div>
@@ -120,7 +121,7 @@
             <div class="flex justify-center items-center">
               <div>
                 <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_speed}}%</p>
-                <p class="text-sm">Speed</p>
+                <p class="text-sm">{{ 'Speed' | transloco }}</p>
               </div>
               <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
                 <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_speed}}%"></div>
@@ -144,75 +145,104 @@
             <li>{{pokemon.default_variety.base_stat_speed}}</li> -->
 
     </div>
-  
-    @if (pokemon && pokemonevolution) {
-      @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
-        <div [ngClass]="getBackgroundClass()">
-          <div class="relative flex items-center justify-center">
-            <div class="flex items-center justify-center p-4 relative">
-              <div class="relative z-10">
-                <div>
-                  <h2 class="text-center text-white">Évolutions Précédentes</h2>
-                  <div class="flex flex-row items-center gap-4">
-                    @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
-                      <div class="flex flex-col items-center">
-                        <!-- Évolutions précédentes des précédentes -->
-                        @if (evolution_avant.previous_evolutions?.length) {
-                          <div class="flex flex-col items-center">
-                            @for(prev_evolution of evolution_avant.previous_evolutions; track prev_evolution.id) {
-                              @if (prev_evolution.pokemon_variety && prev_evolution.pokemon_variety.sprites) {
-                                <img [src]="prev_evolution.pokemon_variety.sprites.artwork_url" class="scale-50">
-                              }
-                            }
-                          </div>
+    <div class="flex flex-row items-center">
+      <div [ngClass]="getBackgroundClass()">
+        <!-- Mobile Slider - Only visible on small screens -->
+        <div class="md:hidden relative w-full overflow-hidden">
+          <div class="flex transition-transform duration-300 ease-in-out" [style.transform]="'translateX(-' + (currentSlide * 100) + '%)'">
+            <div class="flex items-center space-x-4 min-w-full flex-shrink-0">
+              @if (pokemon && pokemonevolution) {
+                @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
+                  @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
+                    @if (evolution_avant.previous_evolutions?.length) {
+                      @for(prev_evolution of evolution_avant.previous_evolutions; track prev_evolution.id) {
+                        @if (prev_evolution.pokemon_variety && prev_evolution.pokemon_variety.sprites) {
+                          <img [src]="prev_evolution.pokemon_variety.sprites.artwork_url" class="scale-50">
                         }
-                        <!-- Évolution actuelle -->
-                        @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
-                          <img [src]="evolution_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
-                        }
-                      </div>
+                      }
                     }
-                  </div>
-                </div>
-              </div>
+                    @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
+                      <img [src]="evolution_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
+                    }
+                  }
+                }
+                @if (pokemon && pokemonevolution) {
+                  <img [src]="pokemon.default_variety.sprites?.artwork_url" [alt]="pokemon.name" class="scale-50 ">
+                }
+                @if (pokemonevolution && pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
+                  @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id) {
+                    <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
+                    @if (evolution_apres.next_evolutions?.length) {
+                      @for(next_evolution of evolution_apres.next_evolutions; track next_evolution.id) {
+                        <img [src]="next_evolution.evolves_to.sprites?.artwork_url" class="scale-50">
+                      }
+                    }
+                  }
+                }
+              }
             </div>
+          </div>
+          
+          <!-- Navigation Buttons -->
+          <div class="absolute inset-y-0 left-0 flex items-center">
+            <button
+              (click)="prevSlide()"
+              class="bg-gray-200 p-2 rounded-full ml-2 opacity-50 hover:opacity-100"
+            >
+              ←
+            </button>
+          </div>
+          <div class="absolute inset-y-0 right-0 flex items-center">
+            <button
+              (click)="nextSlide()"
+              class="bg-gray-200 p-2 rounded-full mr-2 opacity-50 hover:opacity-100"
+            >
+              →
+            </button>
           </div>
         </div>
-      }
-        
-    }
-    @if (pokemonevolution && pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
-      <div [ngClass]="getBackgroundClass()">
-        <div class="relative flex items-center justify-center">
-          <div class="flex items-center justify-center p-4 relative">
-            <div class="relative z-10">
-              <div>
-                <h2 class="text-center text-white">Évolutions Suivantes</h2>
-                <div class="flex flex-row items-center gap-4">
-                  @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id) {
-                    <div class="flex flex-col items-center">
-                      <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
-                      @if (evolution_apres.next_evolutions?.length) {
-                        <div class="flex flex-col items-center">
-                          @for(next_evolution of evolution_apres.next_evolutions; track next_evolution.id) {
-                            <img [src]="next_evolution.evolves_to.sprites?.artwork_url" class="scale-50">
-                          }
-                        </div>
-                      }
-                    </div>
+    
+        <!-- Desktop Layout - Always visible -->
+        <div class="hidden md:flex items-center space-x-4">
+          @if (pokemon && pokemonevolution) {
+            @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
+              @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
+                @if (evolution_avant.previous_evolutions?.length) {
+                  @for(prev_evolution of evolution_avant.previous_evolutions; track prev_evolution.id) {
+                    @if (prev_evolution.pokemon_variety && prev_evolution.pokemon_variety.sprites) {
+                      <img [src]="prev_evolution.pokemon_variety.sprites.artwork_url" class="scale-50">
+                    }
                   }
-                </div>
-              </div>
-            </div>
-          </div>
+                }
+                @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
+                  <img [src]="evolution_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
+                }
+              }
+            }
+            @if (pokemon && pokemonevolution) {
+              <img [src]="pokemon.default_variety.sprites?.artwork_url" [alt]="pokemon.name" class="scale-50 ">
+            }
+            @if (pokemonevolution && pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
+              @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id) {
+                <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
+                @if (evolution_apres.next_evolutions?.length) {
+                  @for(next_evolution of evolution_apres.next_evolutions; track next_evolution.id) {
+                    <img [src]="next_evolution.evolves_to.sprites?.artwork_url" class="scale-50">
+                  }
+                }
+              }
+            }
+          }
         </div>
       </div>
-    }
+    </div>
+      
+      
     
 
 
     <div>
-      <h1 class="justify-center text-center font-bold text-3xl">Attaques</h1>
+      <h1 class="justify-center text-center font-bold text-3xl">{{ 'Attaques' | transloco }}</h1>
       <div class="flex justify-center my-4">
         <div class="relative">
           <select
@@ -228,24 +258,24 @@
       </div>
         
         <!-- Affichage des attaques avec style amélioré -->
-        <div class="moves-container mt-6 rounded-full px-80" *ngIf="versionMoves">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 rounded-full">
-            <div *ngFor="let moveInfo of visibleMoves">
-              <h4 class="text-lg font-medium mb-2 border-2 rounded-full px-2 py-1 text-center">
-                {{ moveInfo.move.name }}
+        <div class="moves-container mt-6 rounded-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40" *ngIf="versionMoves">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 rounded-full">
+            <div *ngFor="let moveInfo of visibleMoves" class="w-full">
+              <h4 class="text-sm sm:text-base md:text-lg font-medium mb-2 border-2 rounded-full px-2 py-1 text-center">
+                {{ getMoveTranslatedName(moveInfo)}}
               </h4>
-              <div class="text-sm">
+              <div class="text-xs sm:text-sm">
                 <p *ngIf="moveInfo.level > 0" class="mb-1">
-                  <span class="font-medium">Niveau:</span> {{ moveInfo.level }}
+                  <span class="font-medium">{{ 'Niveau' | transloco }}</span> {{ moveInfo.level }}
                 </p>
                 <p class="mb-1" *ngIf="moveInfo.move.power">
-                  <span class="font-medium">Puissance:</span> {{ moveInfo.move.power }}
+                  <span class="font-medium">{{ 'Puissance' | transloco }}</span> {{ moveInfo.move.power }}
                 </p>
                 <p class="mb-1" *ngIf="moveInfo.move.accuracy">
-                  <span class="font-medium">Précision:</span> {{ moveInfo.move.accuracy }}%
+                  <span class="font-medium">{{ 'Precision' | transloco }}</span> {{ moveInfo.move.accuracy }}%
                 </p>
                 <p class="mb-1">
-                  <span class="font-medium">PP:</span> {{ moveInfo.move.pp }}
+                  <span class="font-medium">{{ 'PP' | transloco }}</span> {{ moveInfo.move.pp }}
                 </p>
               </div>
             </div>
@@ -257,14 +287,14 @@
               (click)="visibleMoves = versionMoves.moves; showAll = true"
               class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
             >
-              Voir plus d'attaques
+              {{ 'plus' | transloco }}
             </button>
             <button 
               *ngIf="showAll"
               (click)="visibleMoves = versionMoves.moves.slice(0, 6); showAll = false"
               class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
             >
-              Voir moins
+              {{ 'moins' | transloco }}
             </button>
           </div>
         </div>
@@ -274,7 +304,7 @@
       <!-- Bloc Faiblesses -->
       <div class="same-size m-2 border-2 rounded-lg shadow-lg neon-red text-center border-red-500">
         <div class="w-full">
-          <h3 class="text-xl font-bold mb-4">Faiblesses</h3>
+          <h3 class="text-xl font-bold mb-4">{{ 'Faiblesses' | transloco }}</h3>
           <ul class="grid grid-cols-2 gap-4 w-full max-w-lg px-4 grid-center">
             <!-- Boucle Faiblesses -->
             @for(faiblesse of getFaiblesses(); track faiblesse[0]) {
@@ -287,7 +317,7 @@
       <!-- Bloc Forces -->
       <div class="same-size m-2 border-2 rounded-lg shadow-lg neon-green text-center border-green-500">
         <div class="w-full">
-          <h3 class="text-xl font-bold mb-4">Forces</h3>
+          <h3 class="text-xl font-bold mb-4">{{ 'Forces' | transloco }}</h3>
           <ul class="grid grid-cols-2 gap-4 w-full max-w-lg px-4 grid-center">
             <!-- Boucle Forces -->
             @for(resiste of getResiste(); track resiste[0]) {

@@ -166,3 +166,13 @@
   justify-items: center;
 }
 
+/* Styles de transition en douceur */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Styles de base pour le mode sombre */
+html.dark {
+  background-color: #121212;
+  color: #ffffff;
+}

@@ -12,6 +12,8 @@ import { LangSelectorComponent } from './shared/layouts/lang-selector/lang-selec
 import { FormsModule } from '@angular/forms';
 import { PokemonSearchComponent } from './pages/pokemon-search/pokemon-search.component';
 import { ProfilUserComponent } from './pages/profil-user/profil-user.component';
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import { ParametreComponent } from './pages/parametre/parametre.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { ProfilUserComponent } from './pages/profil-user/profil-user.component';
     PokemonDetailComponent,
     LangSelectorComponent,
     PokemonSearchComponent,
-    ProfilUserComponent
+    ProfilUserComponent,
+    ThemeToggleComponent,
+    ParametreComponent
   ],
   imports: [
     BrowserModule,
