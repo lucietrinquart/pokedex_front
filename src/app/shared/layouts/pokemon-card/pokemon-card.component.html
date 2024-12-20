@@ -1,23 +1,25 @@
-<div [ngClass]="getBackgroundClass()" class="card clickable h-80 w-full relative justify-center items-center rounded-xl overflow-visible">
-  <div [ngClass]="getBackgroundColor()" class="absolute inset-0 w-full h-full z-0 rounded-xl">
-    <div class=" inset-y-0 left-0 h-full w-1/2 flex items-center overflow-hidden">
-      <img src="/assets/Union2.png" alt="pokemon" class="h-full object-cover -ml-1/2">
-    </div>
-  </div>
-  
-  <div class="relative flex flex-col items-center h-full w-full z-10">
-    <img [src]="pokemon.default_variety.sprites?.artwork_url" 
-         [alt]="pokemon.name" 
-         class="h-[200px] w-[200px] object-contain -mt-16 mb-auto relative">
-    
-    <div class="flex flex-col items-center mb-6">
-      <p class="text-white font-police text-xl mb-1">{{ pokemon.name }}</p>
-      <p class="text-white font-police text-sm mb-2">#{{ pokemon.id }}</p>
-      <div class="flex gap-2">
-        @for (type of pokemon.default_variety.types; track type.id) {
-          <img [src]="type.sprite_url" [alt]="type.name" class="h-4">
-        }
+<div [ngClass]="{'w-1/2': reducedSize}">
+  <div [ngClass]="getBackgroundClass()" class="card clickable h-80 w-full relative justify-center items-center rounded-xl overflow-visible">
+    <div [ngClass]="getBackgroundColor()" class="absolute inset-0 w-full h-full z-0 rounded-xl">
+      <div class=" inset-y-0 left-0 h-full w-1/2 flex items-center overflow-hidden">
+        <img src="/assets/Union2.png" alt="pokemon" class="h-full object-cover -ml-1/2">
       </div>
     </div>
-  </div>
- </div>
+    
+    <div class="relative flex flex-col items-center h-full w-full z-10">
+      <img [src]="pokemon.default_variety.sprites?.artwork_url" 
+           [alt]="pokemon.name" 
+           class="h-[200px] w-[200px] object-contain -mt-16 mb-auto relative">
+      
+      <div class="flex flex-col items-center mb-6">
+        <p class="text-white font-police text-xl mb-1">{{ getPokemonName() }}</p>
+        <p class="text-white font-police text-sm mb-2">#{{ pokemon.id }}</p>
+        <div class="flex gap-2">
+          @for (type of pokemon.default_variety.types; track type.id) {
+            <img [src]="type.sprite_url" [alt]="getPokemonType()" class="h-4">
+          }
+        </div>
+      </div>
+    </div>
+   </div>
+</div>

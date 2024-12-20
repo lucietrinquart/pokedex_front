@@ -1,1 +1,36 @@
-{}
+{
+    "rechercher_pokemon": "포켓몬을 찾다",
+        "sacha": "사토시",
+        "Dresseur": "2023년부터의 트레이너",
+        "Statistiques": "통계",
+        "captures": "잡은 포켓몬",
+        "enregistres": "잡은 포켓몬",
+        "acapturer": "잡을 포켓몬",
+        "Compagnon": "동료",
+        "choisi": "선택된 포켓몬",
+        "Choisir": "동료를 선택하다",
+        "Fermer": "닫다",
+        "favori": "즐겨찾기",
+        "Statistique": "통계",
+        "metre": "미터",
+        "poids": "무게",
+        "HP": "HP",
+        "Attaque": "공격",
+        "Defence": "방어",
+        "Speed": "스피드",
+        "Precedentes": "이전 진화",
+        "Suivantes": "이후 진화",
+        "Attaques": "공격들",
+        "Niveau": "레벨",
+        "Puissance": "힘",
+        "Precision": "명중률",
+        "PP": "PP",
+        "plus": "다른 공격 보기",
+        "moins": "적게 보기",
+        "Faiblesses": "약점",
+        "Forces": "강점"
+
+
+
+
+}

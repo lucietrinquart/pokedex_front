@@ -1,1 +1,38 @@
-{}
+{
+    "rechercher_pokemon": "寻找宝可梦",
+    "sacha": "小智",
+    "Dresseur": "从2023年开始的训练师",
+    "Statistiques": "统计数据",
+    "captures": "捕获的宝可梦",
+    "enregistres": "捕获的宝可梦",
+    "acapturer": "需要捕捉的宝可梦",
+    "Compagnon": "伙伴",
+    "choisi": "选择的宝可梦",
+    "Choisir": "选择一个伙伴",
+    "Fermer": "关闭",
+    "favori": "收藏",
+    "Statistique": "统计",
+    "metre": "米",
+    "poids": "重量",
+    "HP": "HP",
+    "Attaque": "攻击",
+    "Defence": "防御",
+    "Speed": "速度",
+    "Precedentes": "前一阶段的进化",
+    "Suivantes": "后续进化",
+    "Attaques": "攻击",
+    "Niveau": "等级",
+    "Puissance": "攻击",
+    "Precision": "命中率",
+    "PP": "PP",
+    "plus": "查看更多攻击",
+    "moins": "查看更少",
+    "Faiblesses": "弱点",
+    "Forces": "优势"
+
+
+
+
+
+
+}

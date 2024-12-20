@@ -1,1 +1,35 @@
-{}
+{
+    "rechercher_pokemon": "ein Pokémon suchen",
+    "sacha": "Sacha",
+    "Dresseur": "Trainer seit 2023",
+    "Statistiques": "Statistiken",
+    "captures": "Gefangene Pokémon",
+    "enregistres": "Gefangene Pokémon",
+    "acapturer": "Pokémon zu fangen",
+    "Compagnon": "Begleiter",
+    "choisi": "Ausgewähltes Pokémon",
+    "Choisir": "Einen Begleiter wählen",
+    "Fermer": "Schließen",
+    "favori": "Favorit",
+    "Statistique": "Statistik",
+    "metre": "Meter",
+    "poids": "Gewicht",
+    "HP": "HP",
+    "Attaque": "Angriff",
+    "Defence": "Verteidigung",
+    "Speed": "Rychlost",
+    "Precedentes": "Vorherige Entwicklungen",
+    "Suivantes": "Nachfolgende Entwicklungen",
+    "Attaques": "Útoky",
+    "Niveau": "Level",
+    "Puissance": "Stärke",
+    "Precision": "Genauigkeit",
+    "PP": "AP",
+    "plus": "Weitere Angriffe ansehen",
+    "moins": "Weniger anzeigen",
+    "Faiblesses": "Schwächen",
+    "Forces": "Stärken"
+
+
+
+}

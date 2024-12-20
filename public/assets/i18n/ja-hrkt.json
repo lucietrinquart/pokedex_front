@@ -1,1 +1,37 @@
-{}
+{
+    "rechercher_pokemon": "ポケモンを探す",
+    "sacha": "サトシ",
+    "Dresseur": "2023年からのトレーナー",
+    "Statistiques": "ステータス",
+    "captures": "捕まえたポケモン",
+    "enregistres": "捕まえたポケモン",
+    "acapturer": "捕まえるべきポケモン",
+    "Compagnon": "相棒",
+    "choisi": "選ばれたポケモン",
+    "Choisir": "相棒を選ぶ",
+    "Fermer": "閉じる",
+    "favori": "お気に入り",
+    "Statistique": "統計 ",
+    "metre": "メートル",
+    "poids": "重さ",
+    "HP": "HP",
+    "Attaque": "攻撃",
+    "Defence": "防御",
+    "Speed": "素早さ",
+    "Precedentes": "進化前",
+    "Suivantes": "進化後",
+    "Attaques": "攻撃",
+    "Niveau": "レベル",
+    "Puissance": "力 ",
+    "Precision": "命中率 ",
+    "PP": "PP",
+    "plus": "他の技を見る",
+    "moins": "少し見る",
+    "Faiblesses": "弱点",
+    "Forces": "強さ"
+
+
+
+
+
+}

@@ -1,3 +1,36 @@
 {
-    "pokemon_list": "Liste des Pokémons"
+    "pokemon_list": "Liste des Pokémons",
+    "rechercher_pokemon": "rechercher un pokemon",
+    "sacha": "Sacha",
+    "Dresseur": "Dresseur depuis 2023",
+    "Statistiques": "Statistiques",
+    "captures": "Pokémon capturés",
+    "enregistres": "Pokémon capturés",
+    "acapturer": "Pokémon à capturer",
+    "Compagnon": "Compagnon",
+    "choisi": "Pokémon choisi",
+    "Choisir": "Choisir un compagnon",
+    "Fermer": "Fermer",
+    "favori": "Favori",
+    "Statistique": "Statistique",
+    "metre": "Mètre",
+    "poids": "Poids",
+    "HP": "HP",
+    "Attaque": "Attaque",
+    "Defence": "Défense",
+    "Speed": "Rychlost",
+    "Precedentes": "Évolutions Précédentes",
+    "Suivantes": "Évolutions Suivantes",
+    "Attaques": "Attaques",
+    "Niveau": "Niveau",
+    "Puissance": "Puissance",
+    "Precision": "Précision",
+    "PP": "PP",
+    "plus": "Voir plus d'attaques",
+    "moins": "Voir moins",
+    "Faiblesses": "Faiblesses",
+    "Forces": "Forces"
+
+
+
 }

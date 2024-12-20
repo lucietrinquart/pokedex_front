@@ -1,1 +1,37 @@
-{}
+{
+    "rechercher_pokemon": "buscar un Pokémon",
+    "sacha": "Sacha",
+    "Dresseur": "Entrenador desde 2023",
+    "Statistiques": "Estadísticas",
+    "captures": "Captured Pokémon",
+    "enregistres": "Pokémon capturados",
+    "acapturer": "Pokémon para capturar",
+    "Compagnon": "Compañero",
+    "choisi": "Pokémon elegido",
+    "Choisir": "Elegir un compañero",
+    "Fermer": "Cerrar",
+    "favori": "Favorito",
+    "Statistique": "Estadística",
+    "metre": "Metro",
+    "poids": "Peso",
+    "HP": "HP",
+    "Attaque": "Ataque",
+    "Defence": "Defensa",
+    "Speed": "Rychlost",
+    "Precedentes": "Evoluciones Previas",
+    "Suivantes": "Evoluciones Siguientes",
+    "Attaques": "Defensa",
+    "Niveau": "Nivel",
+    "Puissance": "Potencia",
+    "Precision": "Precisión",
+    "PP": "PP",
+    "plus": "Ver más ataques",
+    "moins": "Ver menos",
+    "Faiblesses": "Debilidades",
+    "Forces": "Fuerzas"
+
+
+
+
+
+}

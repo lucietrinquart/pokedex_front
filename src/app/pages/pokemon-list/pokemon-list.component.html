@@ -1,4 +1,6 @@
-<div class="bg-white py-4">
+
+<div class="py-4">
+
   <div class="flex justify-between items-center max-w-7xl mx-auto">
     <!-- Centered Logo Pokemon -->
     <div class="mx-auto">
@@ -7,7 +9,7 @@
 
     <!-- Profile Picture -->
     <div>
-      <img src="/assets/image_889.png" alt="Profile" class="rounded-full w-8 h-8 border border-blue-400 border-2 bg-gradient-to-r from-blue-400 to-yellow-100 scale-150">
+      <a [routerLink]="['/profil']"><img src="/assets/image_889.png" alt="Profile" class="rounded-full w-8 h-8 border border-blue-400 border-2 bg-gradient-to-r from-blue-400 to-yellow-100 scale-150"></a>
     </div>
   </div>
 </div>
@@ -53,7 +55,7 @@
         id="site-search" 
         name="q" 
         [(ngModel)]="searchQuery"
-        placeholder="Chercher un pokemon" 
+        placeholder="{{ 'rechercher_pokemon' | transloco }}"
         class="bg-gray-200 rounded-l-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent w-full"
       >
       <button 
