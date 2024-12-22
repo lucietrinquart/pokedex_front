@@ -1,16 +1,26 @@
 
 <div class="py-4">
 
-  <div class="py-4">    
-    <div class="flex justify-between items-center max-w-7xl mx-auto">
+  <div class="py-4">
+    <div class="flex justify-between items-center max-w-7xl mx-auto px-4">
       <!-- Centered Logo Pokemon -->
       <div class="mx-auto">
-        <img src="/assets/Logo-Pokemon.png" alt="Pokemon Logo" class="h-8 scale-150">
+        <img 
+          src="/assets/Logo-Pokemon.png" 
+          alt="Pokemon Logo" 
+          class="h-6 sm:h-8 scale-100 sm:scale-150"
+        >
       </div>
       
       <!-- Profile Picture -->
       <div>
-        <a [routerLink]="['/profil']"><img src="/assets/image_889.png" alt="Profile" class="rounded-full w-8 h-8 border border-blue-400 border-2 bg-gradient-to-r from-blue-400 to-yellow-100 scale-150"></a>
+        <a [routerLink]="['/profil']">
+          <img 
+            src="/assets/image_889.png" 
+            alt="Profile" 
+            class="rounded-full w-6 h-6 sm:w-8 sm:h-8 border border-blue-400 border-2 bg-gradient-to-r from-blue-400 to-yellow-100 scale-100 sm:scale-150"
+          >
+        </a>
       </div>
     </div>
   </div>

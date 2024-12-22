@@ -6,7 +6,7 @@
       </div>
     </div>
     
-    <div class="relative flex flex-col items-center h-full w-full z-10">
+    <div class="relative flex flex-col items-center h-full w-full">
       <img [src]="pokemon.default_variety.sprites?.artwork_url" 
            [alt]="pokemon.name" 
            class="h-[200px] w-[200px] object-contain -mt-16 mb-auto relative">
@@ -16,7 +16,7 @@
         <p class="text-white font-police text-sm mb-2">{{formatPokemonNumber(pokemon.id)}}</p>
         <div class="flex gap-2">
           @for (type of pokemon.default_variety.types; track type.id) {
-            <img [src]="type.sprite_url" [alt]="getPokemonType()" class="h-4">
+            <img [src]="type.sprite_url" [alt]="getPokemonType()" class="h-2 sm:h-4">
           }
         </div>
       </div>

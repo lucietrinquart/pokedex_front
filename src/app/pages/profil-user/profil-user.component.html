@@ -30,83 +30,79 @@
     </div>
   </div>
 
-  <!-- Stats and Companion Section -->
-  <div class="mt-64 px-4 max-w-2xl mx-auto">
-    <div class="flex">
-      <!-- Statistics Section (3/4) -->
-      <div class="w-3/4 pr-4">
-        <h2 class="text-xl font-bold mb-4">{{ 'Statistiques' | transloco }}</h2>
-        <div class="flex justify-between items-center">
-          <!-- Captured -->
-          <div class="text-center">
-            <p class="text-xl font-bold">{{pokemonCount}}</p>
-            <p class="text-xs">{{ 'captures' | transloco }}</p>
-            <img src="assets/pokeball_capture.png" alt="Captured" class="w-6 h-6 mx-auto mt-1">
-          </div>
+<!-- Stats and Companion Section -->
+<div class="mt-64 px-4 max-w-2xl mx-auto">
+  <!-- Conteneur principal qui devient flex sur desktop -->
+  <div class="flex flex-col md:flex-row">
+    <!-- Statistics Section -->
+    <div class="w-full md:w-3/4 pr-0 md:pr-4 mb-8 md:mb-0">
+      <h2 class="text-xl font-bold mb-4">{{ 'Statistiques' | transloco }}</h2>
+      <!-- Conteneur des stats qui devient horizontal sur desktop -->
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Captured -->
+        <div class="text-center mb-6 md:mb-0">
+          <p class="text-xl font-bold">{{pokemonCount}}</p>
+          <p class="text-xs">{{ 'captures' | transloco }}</p>
+          <img src="assets/pokeball_capture.png" alt="Captured" class="w-6 h-6 mx-auto mt-1">
+        </div>
 
-          <div class="w-px h-12 bg-gray-300 mx-2"></div>
+        <!-- Séparateur vertical visible uniquement sur desktop -->
+        <div class="hidden md:block w-px h-12 bg-gray-300 mx-2"></div>
 
-          <!-- Registered -->
-          <div class="text-center">
-            <p class="text-xl font-bold">{{pokemonCount2}}</p>
-            <p class="text-xs">{{ 'enregistres' | transloco }}</p>
-            <img src="assets/pokeball_capture.png" alt="Registered" class="w-6 h-6 mx-auto mt-1">
-          </div>
+        <!-- Séparateur horizontal visible uniquement sur mobile -->
+        <div class="w-1/2 h-px bg-gray-300 my-4 md:hidden"></div>
 
-          <div class="w-px h-12 bg-gray-300 mx-2"></div>
-
+        <!-- Registered -->
+        <div class="text-center">
+          <p class="text-xl font-bold">{{pokemonCount2}}</p>
+          <p class="text-xs">{{ 'enregistres' | transloco }}</p>
+          <img src="assets/pokeball_capture.png" alt="Registered" class="w-6 h-6 mx-auto mt-1">
         </div>
       </div>
+    </div>
 
-      <!-- Companion Section (1/4) -->
-      <div class="w-1/2 pl-4 border-l border-gray-300">  <!-- Changé de w-1/4 à w-1/2 -->
-        <h2 class="text-xl font-bold mb-2">{{ 'Compagnon' | transloco }}</h2>
-        <p class="text-sm mb-2">{{ 'choisi' | transloco }}</p>
-        <div class="relative">
-          <!-- Affichage de la card du Pokémon sélectionné -->
-          <div *ngIf="selectedPokemon" class="mt-4">
-            <app-pokemon-card 
-              [pokemon]="selectedPokemon"
-              class="pokemon-card transform transition-transform duration-300 scale-50"
-            ></app-pokemon-card>
-          </div>
-        <button
-        (click)="togglePopup()"
-        class="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-      >
-        {{ 'Choisir' | transloco }}
-      </button>
+    <!-- Companion Section -->
+    <div class="w-full md:w-1/2 md:pl-4 md:border-l border-gray-300">
+      <h2 class="text-xl font-bold mb-2">{{ 'Compagnon' | transloco }}</h2>
+      <p class="text-sm mb-2">{{ 'choisi' | transloco }}</p>
+      <div class="pt-2.5">
+        <!-- Affichage de la card du Pokémon sélectionné -->
+        <div *ngIf="selectedPokemon" class="mt-4">
+          <app-pokemon-card
+            [pokemon]="selectedPokemon"
+            class="pokemon-card transform transition-transform duration-300 scale-50"
+          ></app-pokemon-card>
         </div>
+        <button
+          (click)="togglePopup()"
+          class="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+        >
+          {{ 'Choisir' | transloco }}
+        </button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Popup -->
 <div class="relative">
-
-
-  <!-- Popup -->
   <div *ngIf="isPopupOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="dark:bg-black bg-white p-6 rounded-lg max-w-md w-full">
+    <div class="dark:bg-black bg-white p-6 rounded-lg max-w-md w-full mx-4">
       <h2 class="text-xl font-bold mb-4">Vos Pokémon Compagnons</h2>
-      
-
       
       <!-- Liste des Pokémon compagnons -->
       <div *ngFor="let pokemon of companionPokemons">
-          <button 
-            (click)="ajoutcompagnons(pokemon.id)" 
-            class="w-full text-left p-2 hover:bg-gray-100 rounded"
-          >
-            {{ pokemon?.translations?.[0]?.name || 'Nom non disponible' }}
-          </button>
-        </div>
-    
-       
-
+        <button
+          (click)="ajoutcompagnons(pokemon.id)"
+          class="w-full text-left p-2 hover:bg-gray-100 rounded"
+        >
+          {{ pokemon?.translations?.[0]?.name || 'Nom non disponible' }}
+        </button>
+      </div>
+      
       <!-- Bouton de fermeture -->
-      <button 
-        (click)="closePopup()" 
+      <button
+        (click)="closePopup()"
         class="mt-4 w-full p-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
       >
         {{ 'Fermer' | transloco }}

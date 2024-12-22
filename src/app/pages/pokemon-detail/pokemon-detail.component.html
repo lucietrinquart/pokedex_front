@@ -310,7 +310,9 @@
           <ul class="grid grid-cols-2 gap-4 w-full max-w-lg px-4 grid-center">
             <!-- Boucle Faiblesses -->
             @for(faiblesse of getFaiblesses(); track faiblesse[0]) {
-              <li>{{ faiblesse[0] }}</li>
+              <span class="px-3 py-1 rounded-full border text-{{faiblesse[0].toLowerCase()}}-500 border-{{faiblesse[0].toLowerCase()}}-500">
+                {{ faiblesse[0] }}
+              </span>
             }
           </ul>
         </div>
@@ -323,8 +325,9 @@
           <ul class="grid grid-cols-2 gap-4 w-full max-w-lg px-4 grid-center">
             <!-- Boucle Forces -->
             @for(resiste of getResiste(); track resiste[0]) {
-              <li>{{ resiste[0] }}</li>
-            }
+              <span class="px-3 py-1 rounded-full border text-{{resiste[0].toLowerCase()}}-500 border-{{resiste[0].toLowerCase()}}-500">
+                {{ resiste[0] }}
+              </span>            }
           </ul>
         </div>
       </div>
