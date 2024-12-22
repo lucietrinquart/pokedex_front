@@ -68,10 +68,10 @@
 
     <div class="p-6">
       <!-- Section des valeurs -->
-      <div class="flex items-center justify-center space-x-16">
+      <div class="flex items-center justify-center space-x-4 md:space-x-16">
         <div class="flex flex-col items-center">
-          <p class="text-4xl font-bold mb-2">{{pokemon.default_variety.height}}</p>
-          <p class="text-xl mb-4">{{ 'metre' | transloco }}</p>
+          <p class="text-2xl md:text-4xl font-bold mb-1 md:mb-2">{{pokemon.default_variety.height}}</p>
+          <p class="text-base md:text-xl mb-2 md:mb-4">{{ 'metre' | transloco }}</p>
           <p>
             <!-- Les autres SVG restent identiques -->
             <svg width="22" height="21" viewBox="0 0 22 21" [ngClass]="getBackgroundColor()" xmlns="http://www.w3.org/2000/svg">
@@ -91,12 +91,11 @@
         </div>
         
         <!-- Première séparation verticale -->
-        <div class="h-24 w-px opacity-50"></div>
-        
+        <div class="h-16 md:h-24 w-px opacity-50"></div>
+    
         <div class="flex flex-col items-center">
-          <p class="text-4xl font-bold mb-2">{{pokemon.default_variety.weight}}</p>
-          <p class="text-xl mb-4">{{ 'poids' | transloco }}</p>
-          
+          <p class="text-2xl md:text-4xl font-bold mb-1 md:mb-2">{{pokemon.default_variety.weight}}</p>
+          <p class="text-base md:text-xl mb-2 md:mb-4">{{ 'poids' | transloco }}</p>
           <p>
             <svg width="22" height="22" viewBox="0 0 22 22" [ngClass]="getBackgroundColor()" xmlns="http://www.w3.org/2000/svg">
               <!-- Votre SVG du mètre intact -->
@@ -109,11 +108,11 @@
         </div>
         
         <!-- Deuxième séparation verticale -->
-        <div class="h-24 w-px opacity-50"></div>
-        
+        <div class="h-16 md:h-24 w-px opacity-50"></div>
+    
         <div class="flex flex-col items-center">
-          <div class="text-4xl font-bold mb-2">{{ secondAbilityName }}</div>
-          <p class="text-xl mb-4">{{ 'talent' | transloco }}</p>
+          <div class="text-2xl md:text-4xl font-bold mb-1 md:mb-2">{{ secondAbilityName }}</div>
+          <p class="text-base md:text-xl mb-2 md:mb-4">{{ 'talent' | transloco }}</p>
           <p>
             <svg width="15" height="13" viewBox="0 0 15 13" [ngClass]="getBackgroundColor()" xmlns="http://www.w3.org/2000/svg">
               <g filter="url(#filter0_f_7_218)">
