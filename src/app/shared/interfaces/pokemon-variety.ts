@@ -1,5 +1,7 @@
 import {Type} from "./type"; // <- here
 import {Ability} from "./ability"; // <- here
+import {Translation} from "./translation"; // <- here
+
 
 export interface PokemonVariety {
   base_experience?: number;
@@ -33,4 +35,5 @@ export interface PokemonVariety {
   abilities?: Ability[];
   updated_at: string;
   weight: number;
+  translations: Translation[];
 }

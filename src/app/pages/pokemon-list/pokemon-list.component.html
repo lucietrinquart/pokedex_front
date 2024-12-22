@@ -1,64 +1,201 @@
-<div class="container mx-auto w-32 ">
-    <img src="/assets/Logo-Pokemon.png" alt="Image" class="mx-auto" />
-  </div>
-  <input 
-  type="search" 
-  id="site-search" 
-  name="q" 
-  placeholder="Chercher un pokemon" 
-  class="font-police italic text-base border border-black bg-noir opacity-30 rounded shadow-inner rounded-l-lg rounded-r-none w-64"
-  (input)="handleSearch($event)" 
-/>
-<button 
-  class="my-1 text-sm font-sans bg-gradient-to-r from-autrerouge to-rouge p-1 text-white rounded-r-lg"
-  (click)="searchPokemon()">
-<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 50 50">
-  <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z" fill="#FFFFFF"></path>
-</svg>
-</button>
-<div class="flex justify-center space-x-4">
-    <div class="border-gray bg-gray rounded shadow-inner rounded-lg flex w-full max-w-[200px] overflow-x-auto"> 
-      <div class="flex whitespace-nowrap items-center"> 
-        @for (type of pokemonetype; track type.id) {
-          <div class="type-slide inline-block">
-            <img [src]="type.sprite_url" [alt]="type.name" class="object-contain mx-9" (click)="handleTypeClick(type)"> 
-          </div>
-        }
+
+<div class="py-4">
+
+  <div class="py-4">
+    <div class="flex justify-between items-center max-w-7xl mx-auto px-4">
+      <!-- Centered Logo Pokemon -->
+      <div class="mx-auto">
+        <img 
+          src="/assets/Logo-Pokemon.png" 
+          alt="Pokemon Logo" 
+          class="h-6 sm:h-8 scale-100 sm:scale-150"
+        >
       </div>
+      
+      <!-- Profile Picture -->
+      <div>
+        <a [routerLink]="['/profil']">
+          <img 
+            src="/assets/image_889.png" 
+            alt="Profile" 
+            class="rounded-full w-6 h-6 sm:w-8 sm:h-8 border border-blue-400 border-2 bg-gradient-to-r from-blue-400 to-yellow-100 scale-100 sm:scale-150"
+          >
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="flex items-center space-x-0 justify-center">
-    <button class="my-1 text-sm font-sans bg-gradient-to-r from-autrerouge to-rouge p-1 text-white rounded-lg w-12" >
-        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 50 50">
-            <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z" fill="#FFFFFF"></path>
-        </svg>
-    </button>
+  
+  <div class="py-4">
+    <div class="flex flex-col md:items-center max-w-7xl mx-auto space-y-4 md:space-y-0 px-4 md:px-0">
+      <div class="w-full order-1 md:hidden">
+        <div class="relative">
+          <input
+            type="search"
+            id="site-search-mobile"
+            name="q"
+            [(ngModel)]="searchQuery"
+            placeholder="{{ 'rechercher_pokemon' | transloco }}"
+            class="bg-gray-200 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent w-full"          >
+          <button
+            (click)="handleSearch()"
+            class="absolute inset-y-0 right-0 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-r-[5px] px-4 py-2 hover:from-red-600 hover:to-red-800"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+  
+      <!-- Layout desktop original -->
+      <div class="hidden md:flex items-center space-x-4 w-full">
+        <!-- Types Carousel -->
+        <div class="flex space-x-2 w-64">
+          <div class="flex justify-center space-x-4">
+            <div class="rounded shadow-inner rounded-lg flex w-full max-w-[200px] overflow-x-auto">
+              <div class="flex whitespace-nowrap items-center">
+                <!-- Image Home avec conteneur fixe -->
+                <div class="inline-block w-6 h-6 flex-shrink-0">
+                  <img
+                    src="assets/home_570227.png"
+                    alt="home"
+                    (click)="reloadPage()"
+                    class="w-full h-full object-contain"
+                    title="Recharger la page"
+                  >
+                </div>
+                
+                <!-- Types de Pokémon -->
+                @for (type of pokemonetype; track type.id) {
+                  <div class="type-slide inline-block w-12 h-12 flex-shrink-0">
+                    <img
+                      [src]="type.sprite_url"
+                      [alt]="type.name"
+                      class="w-full h-full object-contain mx-2 cursor-pointer"
+                      (click)="handleTypeClick(type)"
+                    >
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Search Bar desktop -->
+        <div class="flex-1 relative max-w-3xl">
+          <input
+            type="search"
+            id="site-search-desktop"
+            name="q"
+            [(ngModel)]="searchQuery"
+            placeholder="{{ 'rechercher_pokemon' | transloco }}"
+            class="bg-gray-200 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent w-full"
+          >
+          <button
+            (click)="handleSearch()"
+            class="absolute inset-y-0 right-0 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-r-[5px] px-4 py-2 hover:from-red-600 hover:to-red-800"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </div>
+  
+        <!-- Buttons -->
+        <div class="flex space-x-2">
+          <button class="bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg px-4 py-2 hover:from-red-600 hover:to-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </button>
+          <button class="bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg px-4 py-2 hover:from-red-600 hover:to-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+  
+      <!-- Layout mobile pour le carousel et les boutons -->
+      <div class="flex md:hidden justify-between items-center w-full order-2">
+        <!-- Types Carousel -->
+        <div class="flex-1">
+          <div class="flex justify-center space-x-4">
+            <div class="rounded shadow-inner rounded-lg flex w-full max-w-[200px] overflow-x-auto">
+              <div class="flex whitespace-nowrap items-center">
+                <!-- Image Home -->
+                <div class="inline-block w-6 h-6 flex-shrink-0">
+                  <img
+                    src="assets/home_570227.png"
+                    alt="home"
+                    (click)="reloadPage()"
+                    class="w-full h-full object-contain"
+                    title="Recharger la page"
+                  >
+                </div>
+                
+                @for (type of pokemonetype; track type.id) {
+                  <div class="type-slide inline-block w-12 h-12 flex-shrink-0">
+                    <img
+                      [src]="type.sprite_url"
+                      [alt]="type.name"
+                      class="w-full h-full object-contain mx-2 cursor-pointer"
+                      (click)="handleTypeClick(type)"
+                    >
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Buttons mobile -->
+        <div class="flex space-x-2">
+          <button class="bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg px-4 py-2 hover:from-red-600 hover:to-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </button>
+          <button class="bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg px-4 py-2 hover:from-red-600 hover:to-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="flex items-center space-x-0 justify-center">
-    <button class="my-1 text-sm font-sans bg-gradient-to-r from-autrerouge to-rouge p-1 text-white rounded-lg w-12" >
-        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 50 50">
-            <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z" fill="#FFFFFF"></path>
-        </svg>
-    </button>
-  </div>
-</div>
+<div class="p-4 grid gap-4 max-w-7xl mx-auto">
+  @if (searchResults.length > 0) {
+    @for (pokemon of searchResults; track pokemon.id) {
+      <a [routerLink]="['/pokemon/'+pokemon.id]" class="pokemon-card transform transition-transform duration-300 hover:scale-105">
+        @if (pokemon.default_variety?.sprites?.artwork_url) {
+          <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+        } @else {
+          <div class="placeholder">No image</div>
+        }
+      </a>
+    }
+  } @else {
 
 <div>
   <!-- <h1>{{ 'pokemon_list' | transloco }}</h1> -->
-  <section class="p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-center justify-center">
-    @if (isLoading && !pokemonList) {
+  <section class="p-4 grid grid-cols-2 md:grid-cols-3 gap-4 max-w-7xl mx-auto">
+      @if (isLoading && !pokemonList) {
       <div>loading...</div>
     } @else if (pokemonList) {
       @for (pokemon of pokemonList.data; track pokemon.id) {
-        <a [routerLink]="['/pokemon/'+pokemon.id]" class="pokemon-card">
-          @if (pokemon.default_variety.sprites?.artwork_url) {
-            <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
-          } @else {
-            <div class="placeholder">No image</div>
-          }
-        </a>
+       <a [routerLink]="['/pokemon/'+pokemon.id]" class="pokemon-card transform transition-transform duration-300 hover:scale-105">
+  @if (pokemon.default_variety.sprites?.artwork_url) {
+    <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+  } @else {
+    <div class="placeholder">No image</div>
+  }
+</a>
       }
     } @else {
       <div>Aucun Pokémon trouvé</div>
     }
   </section>
 </div>
+  }

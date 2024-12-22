@@ -1,1 +1,37 @@
-{}
+{
+    "rechercher_pokemon": "hledat Pokémon",
+    "sacha": "Sacha",
+    "Dresseur": "Trenér od roku",
+    "Statistiques": "Statistiky",
+    "captures": "Chycené Pokémony",
+    "enregistres": "Chycené Pokémony",
+    "acapturer": "Pokémony k chytání",
+    "Compagnon": "Společník",
+    "choisi": "Vybraný Pokémon",
+    "Choisir": "Vybrat společníka",
+    "Fermer": "Zavřít",
+    "favori": "Oblíbený",
+    "Statistique": "Statistika",
+    "metre": "Metr",
+    "poids": "Hmotnost",
+    "HP": "HP",
+    "Attaque": "Útok",
+    "Defence": "Obrana",
+    "Speed": "Rychlost",
+    "Precedentes": "Předchozí evoluce",
+    "Suivantes": "Následující evoluce",
+    "Attaques": "Útoky",
+    "Niveau": "Úroveň",
+    "Puissance": "Síla",
+    "Precision": "Přesnost",
+    "PP": "PP",
+    "plus": "Zobrazit více útoků",
+    "moins": "Zobrazit méně",
+    "Faiblesses": "Slabiny",
+    "Forces": "Síly",
+    "talent": "talent",
+    "déclinaisons": "skloňování",
+    "évolutions ": "evoluce"
+
+
+}

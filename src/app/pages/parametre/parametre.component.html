@@ -1,0 +1,31 @@
+<div class="relative min-h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url('assets/background-image.png')">
+
+  
+    <!-- Main content div -->
+    <div class="relative w-[500px] rounded-[10px] backdrop-blur-lg p-6 dark:bg-black bg-white bg-opacity-50 dark:bg-opacity-50">      <div class="absolute top-4 left-4 pl-4">
+        <a [routerLink]="['/profil']" class="btn btn-circle btn-primary mr-2"><svg width="33" height="28" viewBox="0 0 33 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3384 0.00116634C14.7083 0.00116634 14.1041 0.246911 13.6585 0.68434C13.213 1.12177 12.9627 1.71505 12.9627 2.33367C12.9627 2.95228 13.213 3.54556 13.6585 3.98299C14.1041 4.42042 14.7083 4.66617 15.3384 4.66617H21.8195C23.4602 4.69753 25.023 5.35947 26.172 6.50977C27.321 7.66008 27.9647 9.20697 27.9647 10.8181C27.9647 12.4293 27.321 13.9762 26.172 15.1265C25.023 16.2768 23.4602 16.9387 21.8195 16.9701H11.2331V12.9395C11.233 12.4783 11.0936 12.0274 10.8326 11.6439C10.5715 11.2605 10.2005 10.9616 9.76647 10.7851C9.33242 10.6086 8.85481 10.5624 8.39403 10.6523C7.93324 10.7423 7.50997 10.9644 7.17772 11.2905L0.70142 17.6489C0.367776 17.9743 0.140006 18.3896 0.0469619 18.8422C-0.0460824 19.2948 -0.000214728 19.7643 0.178755 20.1913C0.294375 20.4712 0.467013 20.7254 0.696669 20.954L7.17772 27.3171C7.50997 27.6432 7.93324 27.8652 8.39403 27.9552C8.85481 28.0452 9.33242 27.999 9.76647 27.8225C10.2005 27.646 10.5715 27.3471 10.8326 26.9636C11.0936 26.5801 11.233 26.1292 11.2331 25.668V21.6351H21.8195C23.2799 21.6562 24.7301 21.3919 26.0856 20.8578C27.4411 20.3236 28.6749 19.5302 29.7153 18.5237C30.7556 17.5171 31.5818 16.3176 32.1457 14.9947C32.7096 13.6719 33 12.2522 33 10.8181C33 9.38411 32.7096 7.9644 32.1457 6.64155C31.5818 5.31871 30.7556 4.11914 29.7153 3.1126C28.6749 2.10607 27.4411 1.31265 26.0856 0.778496C24.7301 0.244342 23.2799 -0.0198898 21.8195 0.00116634H15.3384Z" fill="white"/>
+            </svg></a>
+      </div>
+  
+      <!-- Profile image overlapping the div -->
+      <div class="absolute -top-1/4 left-1/2 transform -translate-x-1/2">
+        <img 
+          src="assets/image_889.png" 
+          alt="Profile" 
+          class="w-48 h-48 rounded-full border-4 border-blue-400 bg-gradient-to-r from-blue-400 to-yellow-100"
+        >
+      </div>
+          <!-- Sacha title -->
+    <div class="text-center pt-40">
+        <h1 class="text-4xl font-bold">{{userName}}</h1>
+        <p class="text-xl">{{ 'Dresseur' | transloco }} {{ userdate }}</p>
+      </div>
+  
+      <!-- Centered theme and language selectors -->
+      <div class="flex justify-center items-center space-x-4 mt-32">
+        <app-theme-toggle></app-theme-toggle>
+        <app-lang-selector class="text-black"></app-lang-selector>
+      </div>
+    </div>
+  </div>

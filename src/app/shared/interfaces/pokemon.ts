@@ -1,4 +1,6 @@
 import {PokemonVariety} from "./pokemon-variety";
+import {Translation} from "./translation"; // <- here
+
 
 export interface Pokemon {
     category: string;
@@ -12,4 +14,6 @@ export interface Pokemon {
     name: string;
     updated_at: string;
     varieties: PokemonVariety[];
+    translations: Translation[];
+    
 }

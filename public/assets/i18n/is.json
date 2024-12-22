@@ -1,1 +1,40 @@
-{}
+{
+    "rechercher_pokemon": " leita að Pokémon",
+    "sacha": "Sacha",
+    "Dresseur": "Þjálfari síðan",
+    "Statistiques": "Tölfræði",
+    "captures": "Veiddir Pokémon",
+    "enregistres": "Veiddir Pokémon",
+    "acapturer": "Pokémon sem þarf að veiða",
+    "Compagnon": "Félagi",
+    "choisi": "Valið Pokémon",
+    "Choisir": "Velja félaga",
+    "Fermer": "Loka",
+    "favori": "Uppáhald",
+    "Statistique": "Tölfræði",
+    "metre": "Metri",
+    "poids": "Þyngd",
+    "HP": "HP",
+    "Attaque": "Árás",
+    "Defence": "Vörn",
+    "Speed": "Rychlost",
+    "Precedentes": "Fyrri þróanir",
+    "Suivantes": "Næstu þróanir",
+    "Attaques": "Árás",
+    "Niveau": "Stig",
+    "Puissance": "Kraft",
+    "Precision": "Nákvæmni",
+    "PP": "PP",
+    "plus": "Skoða fleiri árásir",
+    "moins": "Skoða minna",
+    "Faiblesses": "Veikleikar",
+    "Forces": "Styrkur",
+    "talent": "hæfileiki",
+    "déclinaisons": "beygingar",
+    "évolutions ": "þróun"
+
+
+
+
+
+}

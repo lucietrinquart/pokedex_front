@@ -1,3 +1,6 @@
+import {MoveTranslation} from "./move-translation";
+
+
 export interface Move {
     id: number,
     accuracy: number,
@@ -10,4 +13,5 @@ export interface Move {
     updated_at: string,
     name: string,
     description: string,
+    translations: MoveTranslation[];
 }
