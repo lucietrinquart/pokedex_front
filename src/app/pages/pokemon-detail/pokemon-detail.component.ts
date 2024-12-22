@@ -132,6 +132,7 @@ export class PokemonDetailComponent {
     
   }
 
+
   formatPokemonNumber(id: number): string {
     return '#' + id.toString().padStart(4, '0');
   }
