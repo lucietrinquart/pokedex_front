@@ -70,10 +70,12 @@
         <div class="flex space-x-10 justify-center">
           <p>{{pokemon.default_variety.height}}</p>
           <p>{{pokemon.default_variety.weight}}</p>
+          <div>{{ secondAbilityName }}</div>
         </div>
         <div class="flex space-x-10 justify-center">
           <p>{{ 'metre' | transloco }}</p>
           <p>{{ 'poids' | transloco }}</p>
+          <p>{{ 'talent' | transloco }}</p>
         </div>
         <h1 class="justify-center text-center font-bold text-3xl">{{ 'Statistique' | transloco }}</h1>
         <div class="container mx-auto px-10">

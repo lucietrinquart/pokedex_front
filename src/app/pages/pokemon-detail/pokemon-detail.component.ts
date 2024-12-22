@@ -38,6 +38,7 @@ export class PokemonDetailComponent {
   currentSlide = 0;
   typeTranslations: { [key: number]: string } = {};
   favorites: { [key: number]: boolean } = {};
+  secondAbilityName: string | null = null;
 
 
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
@@ -101,11 +102,30 @@ export class PokemonDetailComponent {
       this.pokemonfaiblesse = response;
     });
 
-    this.apiService.requestApi(`/pokemon/${pokemonId}/abilities`).then((response: Ability) => {
-      this.abiliti = response;
+
+    this.apiService.requestApi(`/pokemon/${pokemonId}/abilities`).then((response: Pokemon) => {
+      if (response?.default_variety?.abilities && response.default_variety.abilities.length > 1) {
+        const ability = response.default_variety.abilities[1];
+        this.secondAbilityName = this.getAbilityName(ability);
+        console.log('Second ability name translated:', this.secondAbilityName);
+      } else {
+        this.secondAbilityName = null;
+      }
     });
 
     
+  }
+
+  getAbilityName(ability: Ability): string {
+    const currentLang = this.translocoService.getActiveLang();
+    
+    if (!ability?.abilitetrainslation) {
+      return ability?.name || 'Unknown Ability';
+    }
+    
+    const translation = ability.abilitetrainslation.find(t => t.locale === currentLang);
+    
+    return translation?.name || ability.name;
   }
 
   
