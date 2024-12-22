@@ -13,7 +13,7 @@
       
       <div class="flex flex-col items-center mb-6">
         <p class="text-white font-police text-xl mb-1">{{ getPokemonName() }}</p>
-        <p class="text-white font-police text-sm mb-2">#{{ pokemon.id }}</p>
+        <p class="text-white font-police text-sm mb-2">{{formatPokemonNumber(pokemon.id)}}</p>
         <div class="flex gap-2">
           @for (type of pokemon.default_variety.types; track type.id) {
             <img [src]="type.sprite_url" [alt]="getPokemonType()" class="h-4">

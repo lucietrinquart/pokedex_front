@@ -116,6 +116,10 @@ export class PokemonDetailComponent {
     
   }
 
+  formatPokemonNumber(id: number): string {
+    return '#' + id.toString().padStart(4, '0');
+  }
+
   getAbilityName(ability: Ability): string {
     const currentLang = this.translocoService.getActiveLang();
     

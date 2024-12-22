@@ -56,7 +56,9 @@ export class PokemonCardComponent{
     }
     return '';
   }
-
+  formatPokemonNumber(id: number): string {
+    return '#' + id.toString().padStart(4, '0');
+  }
   constructor(private translocoService: TranslocoService) {}
   
   getPokemonName(): string {

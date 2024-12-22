@@ -31,6 +31,7 @@ export class PokemonListComponent {
 
   }
 
+
   handleSearch() {
     if (this.searchQuery.trim()) {
       console.log('Searching for:', this.searchQuery);
