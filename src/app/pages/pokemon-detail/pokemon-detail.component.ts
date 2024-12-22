@@ -14,6 +14,8 @@ import { MoveTranslation } from '../../shared/interfaces/move-translation';
 import { TranslationMap } from '../../shared/interfaces/translation-map';
 import { TypeWithTranslations } from '../../shared/interfaces/type-with-translations';
 import { TypeTranslation } from '../../shared/interfaces/type-translation';
+import { TypeMapping } from '../../shared/interfaces/type-mapping';
+
 
 
 
@@ -46,6 +48,8 @@ export class PokemonDetailComponent {
   secondAbilityName: string | null = null;
   private translationMap: TranslationMap = {};
   selectedLang: string;
+  private reverseTranslationMap: Map<string, string> = new Map();
+  private typeMapping: TypeMapping = {};
 
 
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
@@ -159,6 +163,9 @@ export class PokemonDetailComponent {
     });
     this.loadFavoriteStatus();
     this.loadTypeTranslations();
+    this.translocoService.langChanges$.subscribe(() => {
+      this.updateTypeTranslations();
+    });
     
 
   }
@@ -269,54 +276,79 @@ export class PokemonDetailComponent {
   playCry() {
     this.audioPlayer.nativeElement.play();
   }
+
+
+
+
+  private updateTypeTranslations() {
+    if (this.pokemonfaiblesse) {
+      // Mettre à jour les traductions pour les faiblesses et résistances
+      this.getFaiblesses();
+      this.getResiste();
+    }
+  }
+
   private loadTypeTranslations() {
-    this.apiService.requestApi('/types').then((types: TypeWithTranslations[]) => {
-      types.forEach((type) => {
-        if (!this.translationMap[type.name]) {
-          this.translationMap[type.name] = {};
-        }
+    this.apiService.requestApi('/type').then((types: TypeWithTranslations[]) => {
+      types.forEach(type => {
+        // Stockez le type original
+        this.typeMapping[type.name] = {
+          original: type.name,
+          translations: {}
+        };
         
+        // Stockez les traductions
         type.translations.forEach((translation: TypeTranslation) => {
-          this.translationMap[type.name][translation.locale] = translation.name;
+          this.typeMapping[type.name].translations[translation.locale] = translation.name;
+          
+          // Créez aussi une entrée pour la traduction qui pointe vers le type original
+          this.typeMapping[translation.name.toLowerCase()] = {
+            original: type.name,
+            translations: {}
+          };
         });
       });
       this.updateTypeTranslations();
     });
   }
 
-  private updateTypeTranslations() {
-    if (this.pokemonfaiblesse) {
-      this.getFaiblesses();
-      this.getResiste();
-    }
+  // Nouvelle méthode pour obtenir le type original à partir d'une traduction
+  private getOriginalType(translatedType: string): string {
+    const typeEntry = this.typeMapping[translatedType.toLowerCase()];
+    return typeEntry ? typeEntry.original : translatedType;
   }
 
-  getTypeTranslation(typeName: string): string {
-    const translations = this.translationMap[typeName];
-    if (translations && translations[this.selectedLang]) {
-      return translations[this.selectedLang];
-    }
-    return typeName;
+  // Modifiez la méthode getTypeStyles pour utiliser le mapping
+  getTypeStyles(translatedType: string): { [key: string]: string } {
+    const originalType = this.getOriginalType(translatedType);
+    return {
+      'color': `var(--${originalType}-500)`,
+      'border-color': `var(--${originalType}-500)`,
+      'background-color': `var(--${originalType}-700)`
+    };
   }
 
+  // Modifiez les méthodes getFaiblesses et getResiste
   getFaiblesses(): [string, number][] {
-    if (this.pokemonfaiblesse?.faible) {
-      return Object.entries(this.pokemonfaiblesse.faible).map(([type, value]) => [
-        this.getTypeTranslation(type),
-        value
-      ]);
-    }
-    return [];
+    if (!this.pokemonfaiblesse?.faible) return [];
+    const currentLang = this.translocoService.getActiveLang();
+    
+    return Object.entries(this.pokemonfaiblesse.faible).map(([type, value]) => {
+      const typeEntry = this.typeMapping[type];
+      const translatedName = typeEntry?.translations[currentLang] || type;
+      return [translatedName, value];
+    });
   }
 
   getResiste(): [string, number][] {
-    if (this.pokemonfaiblesse?.resiste) {
-      return Object.entries(this.pokemonfaiblesse.resiste).map(([type, value]) => [
-        this.getTypeTranslation(type),
-        value
-      ]);
-    }
-    return [];
+    if (!this.pokemonfaiblesse?.resiste) return [];
+    const currentLang = this.translocoService.getActiveLang();
+    
+    return Object.entries(this.pokemonfaiblesse.resiste).map(([type, value]) => {
+      const typeEntry = this.typeMapping[type];
+      const translatedName = typeEntry?.translations[currentLang] || type;
+      return [translatedName, value];
+    });
   }
 
 

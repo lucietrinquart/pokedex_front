@@ -16,6 +16,7 @@ module.exports = {
         'rouge': '#EB0000',
         'autrerouge': '#FF6E6E',
         'noir': '#313131',
+        
         water: {
           500: '#6390F0',
           700: '#4b6ec0',
@@ -93,6 +94,7 @@ module.exports = {
           text: '#000000',
         }         
       },
+      
       
   },
   },
