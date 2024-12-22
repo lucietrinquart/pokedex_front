@@ -12,8 +12,7 @@ import { environment } from '../environments/environment';
       provideTransloco({
         config: {
           availableLangs: ['ja-hrkt', 'ja-roj', 'ko', 'zh-hans', 'zh-hant', 'fr', 'de', 'es', 'is', 'en', 'cs'],
-          defaultLang: 'fr',
-          // Remove this option if your application doesn't support changing language in runtime.
+          defaultLang: 'en',
           reRenderOnLangChange: true,
           prodMode: environment.production,
         },

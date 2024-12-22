@@ -9,7 +9,7 @@
       </div>
       <div class="relative flex items-center justify-center">
         <div class="absolute inset-0 flex items-center justify-center z-0 scale-50">
-          <svg width="323" height="319" viewBox="0 0 323 319" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="323" height="319" viewBox="0 0 323 319" fill="none" xmlns="http://www.w3.org/2000/svg" class="scale-150">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M315.626 112.86C299.778 64.6152 268.277 30.7664 221.329 11.2672C213.619 8.06391 205.667 5.54038 197.425 4.02254C191.069 2.34639 184.582 1.48038 178.058 0.828546C158.485 -1.12696 139.193 0.353638 120.227 5.54038C86.5044 14.7592 58.5875 32.9826 36.6908 60.1455C16.8568 84.7569 5.40445 112.879 2.14701 144.316C1.94167 146.29 2.50169 146.486 4.21908 146.486C35.3001 146.439 66.3811 146.43 97.4621 146.495C99.4034 146.495 100.094 145.983 100.561 144.065C108.037 113.233 138.987 92.7465 170.46 97.7005C195.568 101.649 215.794 120.133 221.655 144.549C221.991 145.955 222.486 146.514 224.054 146.486C228.727 146.409 233.399 146.42 238.075 146.432H238.076C240.181 146.437 242.286 146.442 244.392 146.439C250.412 146.43 256.432 146.416 262.453 146.402C268.473 146.388 274.493 146.374 280.513 146.365L319.453 146.448C322.263 146.448 322.3 146.448 321.982 143.608C320.806 133.16 318.921 122.852 315.636 112.851L315.626 112.86ZM318.977 172.242C310.428 172.286 301.878 172.304 293.328 172.323C289.054 172.332 284.779 172.342 280.504 172.354C280.322 172.346 280.139 172.337 279.956 172.327C279.492 172.304 279.025 172.28 278.563 172.28C275.272 172.28 271.981 172.28 268.689 172.281H268.689C253.879 172.284 239.065 172.286 224.25 172.233C222.551 172.233 221.991 172.717 221.609 174.356C214.291 205.309 182.949 226.456 151.578 220.907C124.772 216.176 107.682 200.187 100.365 173.956C100.029 172.764 99.6648 172.233 98.2741 172.242C66.0358 172.289 33.7974 172.289 1.55908 172.242C0.187038 172.242 -0.102304 172.578 0.0283665 173.919C0.78439 181.657 1.92309 189.339 3.97649 196.835C19.5917 253.992 55.5821 292.227 111.743 311.241C133.107 318.477 155.275 320.162 177.703 317.723C184.788 316.95 191.844 315.897 198.704 313.867C198.822 313.855 198.94 313.849 199.058 313.843L199.059 313.843H199.06C199.298 313.83 199.534 313.818 199.759 313.756C241.079 302.721 273.354 279.255 296.315 243.283C309.858 222.052 317.633 198.744 320.051 173.676C320.144 172.717 320.163 172.242 318.968 172.252L318.977 172.242ZM161.211 122.666C181.773 122.731 197.92 139.297 197.864 160.249H197.874C197.818 179.739 180.887 196.146 160.959 196.025C140.425 195.904 124.241 179.282 124.306 158.396C124.362 138.85 141.153 122.591 161.211 122.666Z" fill="url(#paint0_linear_144_781)" fill-opacity="0.5"/>
             <defs>
               <linearGradient id="paint0_linear_144_781" x1="161.09" y1="122.665" x2="161.09" y2="196.026" gradientUnits="userSpaceOnUse">
@@ -31,8 +31,8 @@
      
     
         <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center text-white p-4 z-50">
-          <p class="opacity-90">#{{pokemon.id}}</p>
-          <p>{{pokemon.name}}</p>
+          <p class="opacity-90">{{formatPokemonNumber(pokemon.id)}}</p>
+          <p>{{getPokemonName()}}</p>
 
   
           <div class="flex">
@@ -48,7 +48,13 @@
               </svg>
             </button>
             <audio #audioPlayer [src]="pokemon.default_variety.cry_url" preload="auto"></audio>
-          
+
+            <div>
+            <!--bouton qui permet de rajouter le pokemon de la page dans la table favori-->
+            <button (click)="addToFavorite(pokemon.id)" class="focus:outline-none">
+              <img [src]="favorites[pokemon.id] ? '/assets/Group_1244830742.png' : '/assets/Group.png'" [alt]="favorites[pokemon.id] ? 'Retirer des favoris' : 'Ajouter aux favoris'"class="w-6 h-6" >
+            </button>            
+          </div>
         </div>
       </div>
     </div>
@@ -60,52 +66,130 @@
       <img [src]="pokemon.default_variety.sprites?.back_shiny_url" alt="back sprite shiny" class="h-24 w-24 p-1 bg-neutral rounded-lg">
     </div> -->
 
-    <div>
-        <div class="flex space-x-10 justify-center">
-          <p>{{pokemon.default_variety.height}}</p>
-          <p>{{pokemon.default_variety.weight}}</p>
+    <div class="text-white p-6">
+      <!-- Section des valeurs -->
+      <div class="flex items-center justify-center space-x-16">
+        <div class="flex flex-col items-center">
+          <p class="text-4xl font-bold mb-2">{{pokemon.default_variety.height}}</p>
+          <p class="text-xl mb-4">{{ 'metre' | transloco }}</p>
+          <p>
+            <!-- Les autres SVG restent identiques -->
+            <svg width="22" height="21" viewBox="0 0 22 21" [ngClass]="getBackgroundColor()" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_f_7_144)">
+                <path d="M11 3C11.8487 3 12.6626 3.35119 13.2627 3.97631C13.8629 4.60143 14.2 5.44928 14.2 6.33333C14.2 6.94167 14.048 7.50833 13.768 8H15.8C16.56 8 17.2 8.55833 17.36 9.3C18.968 15.975 19 16.15 19 16.3333C19 16.7754 18.8314 17.1993 18.5314 17.5118C18.2313 17.8244 17.8243 18 17.4 18H4.6C4.17565 18 3.76869 17.8244 3.46863 17.5118C3.16857 17.1993 3 16.7754 3 16.3333C3 16.15 3.032 15.975 4.64 9.3C4.8 8.55833 5.44 8 6.2 8H8.232C7.94639 7.49517 7.79713 6.9193 7.8 6.33333C7.8 5.44928 8.13714 4.60143 8.73726 3.97631C9.33737 3.35119 10.1513 3 11 3ZM11 4.66667C10.5757 4.66667 10.1687 4.84226 9.86863 5.15482C9.56857 5.46738 9.4 5.89131 9.4 6.33333C9.4 6.77536 9.56857 7.19928 9.86863 7.51184C10.1687 7.8244 10.5757 8 11 8C11.4243 8 11.8313 7.8244 12.1314 7.51184C12.4314 7.19928 12.6 6.77536 12.6 6.33333C12.6 5.89131 12.4314 5.46738 12.1314 5.15482C11.8313 4.84226 11.4243 4.66667 11 4.66667ZM6.2 9.66667V16.3333H7.8V14.25L8.6 15.0833V16.3333H10.2V14.6667L8.6 13L10.2 11.3333V9.66667H8.6V10.9167L7.8 11.75V9.66667H6.2ZM13.4 9.66667C12.512 9.66667 11.8 10.4083 11.8 11.3333V14.6667C11.8 15.5917 12.512 16.3333 13.4 16.3333H15.8V12.1667H14.2V14.6667H13.4V11.3333H15.8V9.66667H13.4Z" fill="#FE9541"/>
+                </g>
+                <path d="M11 3C11.8487 3 12.6626 3.35119 13.2627 3.97631C13.8629 4.60143 14.2 5.44928 14.2 6.33333C14.2 6.94167 14.048 7.50833 13.768 8H15.8C16.56 8 17.2 8.55833 17.36 9.3C18.968 15.975 19 16.15 19 16.3333C19 16.7754 18.8314 17.1993 18.5314 17.5118C18.2313 17.8244 17.8243 18 17.4 18H4.6C4.17565 18 3.76869 17.8244 3.46863 17.5118C3.16857 17.1993 3 16.7754 3 16.3333C3 16.15 3.032 15.975 4.64 9.3C4.8 8.55833 5.44 8 6.2 8H8.232C7.94639 7.49517 7.79713 6.9193 7.8 6.33333C7.8 5.44928 8.13714 4.60143 8.73726 3.97631C9.33737 3.35119 10.1513 3 11 3ZM11 4.66667C10.5757 4.66667 10.1687 4.84226 9.86863 5.15482C9.56857 5.46738 9.4 5.89131 9.4 6.33333C9.4 6.77536 9.56857 7.19928 9.86863 7.51184C10.1687 7.8244 10.5757 8 11 8C11.4243 8 11.8313 7.8244 12.1314 7.51184C12.4314 7.19928 12.6 6.77536 12.6 6.33333C12.6 5.89131 12.4314 5.46738 12.1314 5.15482C11.8313 4.84226 11.4243 4.66667 11 4.66667ZM6.2 9.66667V16.3333H7.8V14.25L8.6 15.0833V16.3333H10.2V14.6667L8.6 13L10.2 11.3333V9.66667H8.6V10.9167L7.8 11.75V9.66667H6.2ZM13.4 9.66667C12.512 9.66667 11.8 10.4083 11.8 11.3333V14.6667C11.8 15.5917 12.512 16.3333 13.4 16.3333H15.8V12.1667H14.2V14.6667H13.4V11.3333H15.8V9.66667H13.4Z" fill="#FE9541"/>
+                <defs>
+                <filter id="filter0_f_7_144" x="0" y="0" width="22" height="21" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feGaussianBlur stdDeviation="1.5" result="effect1_foregroundBlur_7_144"/>
+                </filter>
+                </defs>
+            </svg>
+          </p>
         </div>
-        <div class="flex space-x-10 justify-center">
-          <p>mètre</p>
-          <p>poids</p>
+        
+        <!-- Première séparation verticale -->
+        <div class="h-24 w-px bg-white opacity-50"></div>
+        
+        <div class="flex flex-col items-center">
+          <p class="text-4xl font-bold mb-2">{{pokemon.default_variety.weight}}</p>
+          <p class="text-xl mb-4">{{ 'poids' | transloco }}</p>
+          
+          <p>
+            <svg width="22" height="22" viewBox="0 0 22 22" [ngClass]="getBackgroundColor()" xmlns="http://www.w3.org/2000/svg">
+              <!-- Votre SVG du mètre intact -->
+              <g filter="url(#filter0_f_7_218)">
+                <path d="M3 13.8928C3 14.5704 3.5456 15.116 4.636 16.2064L5.7936 17.364C6.884 18.4544 7.4296 19 8.1072 19C8.7848 19 9.3312 18.4544 10.4216 17.364L17.364 10.4216C18.4544 9.3304 19 8.784 19 8.1072C19 7.4304 18.4544 6.884 17.364 5.7936L16.2064 4.636C15.116 3.5456 14.5704 3 13.8928 3C13.2896 3 12.792 3.432 11.9216 4.2944C11.9456 4.312 11.9683 4.33147 11.9896 4.3528L13.1216 5.4848C13.1789 5.54018 13.2246 5.6064 13.256 5.67962C13.2874 5.75284 13.3039 5.83158 13.3045 5.91125C13.3052 5.99091 13.29 6.06991 13.2598 6.14364C13.2296 6.21736 13.185 6.28433 13.1286 6.34064C13.0723 6.39695 13.0053 6.44147 12.9315 6.4716C12.8578 6.50173 12.7787 6.51688 12.6991 6.51615C12.6194 6.51542 12.5407 6.49883 12.4675 6.46735C12.3943 6.43587 12.3281 6.39013 12.2728 6.3328L11.1416 5.2016C11.1206 5.17981 11.1008 5.15684 11.0824 5.1328L10.224 5.9912C10.248 6.0088 10.2709 6.02853 10.2928 6.0504L11.9896 7.7472C12.0485 7.80213 12.0958 7.86837 12.1286 7.94197C12.1614 8.01557 12.1791 8.09502 12.1805 8.17558C12.1819 8.25614 12.1671 8.33617 12.1369 8.41088C12.1067 8.48559 12.0618 8.55346 12.0048 8.61043C11.9479 8.66741 11.88 8.71232 11.8053 8.7425C11.7306 8.77268 11.6505 8.78749 11.57 8.78607C11.4894 8.78465 11.41 8.76702 11.3364 8.73422C11.2628 8.70143 11.1965 8.65415 11.1416 8.5952L9.444 6.8992C9.42296 6.87715 9.40319 6.85391 9.3848 6.8296L8.528 7.688C8.55147 7.7056 8.5744 7.72533 8.5968 7.7472L9.728 8.8784C9.83398 8.99214 9.89168 9.14258 9.88894 9.29802C9.8862 9.45346 9.82323 9.60177 9.7133 9.7117C9.60337 9.82163 9.45506 9.8846 9.29962 9.88734C9.14418 9.89008 8.99374 9.83238 8.88 9.7264L7.7464 8.5968C7.72538 8.57501 7.70562 8.55204 7.6872 8.528L6.8296 9.384C6.85413 9.4016 6.87707 9.42133 6.8984 9.4432L8.596 11.1408C8.70524 11.254 8.76565 11.4056 8.76421 11.5629C8.76277 11.7202 8.69959 11.8707 8.5883 11.9819C8.477 12.0931 8.32648 12.1561 8.16916 12.1574C8.01184 12.1587 7.86031 12.0981 7.7472 11.9888L6.0504 10.292C6.02938 10.2702 6.00962 10.2472 5.9912 10.2232L5.1328 11.0816C5.1568 11.0987 5.17973 11.1184 5.2016 11.1408L6.3328 12.272C6.43878 12.3857 6.49648 12.5362 6.49374 12.6916C6.491 12.8471 6.42803 12.9954 6.3181 13.1053C6.20817 13.2152 6.05986 13.2782 5.90442 13.2809C5.74898 13.2837 5.59854 13.226 5.4848 13.12L4.352 11.9904C4.33128 11.9688 4.31178 11.9461 4.2936 11.9224C3.4312 12.792 3 13.2896 3 13.8928Z" fill="#FFFFFF"/>
+              </g>
+            
+            </svg>
+          </p>
+        </div>
+        
+        <!-- Deuxième séparation verticale -->
+        <div class="h-24 w-px bg-white opacity-50"></div>
+        
+        <div class="flex flex-col items-center">
+          <div class="text-4xl font-bold mb-2">{{ secondAbilityName }}</div>
+          <p class="text-xl mb-4">{{ 'talent' | transloco }}</p>
+          <p>
+            <svg width="15" height="13" viewBox="0 0 15 13" [ngClass]="getBackgroundColor()" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_f_7_218)">
+                <path d="M3 13.8928C3 14.5704 3.5456 15.116 4.636 16.2064L5.7936 17.364C6.884 18.4544 7.4296 19 8.1072 19C8.7848 19 9.3312 18.4544 10.4216 17.364L17.364 10.4216C18.4544 9.3304 19 8.784 19 8.1072C19 7.4304 18.4544 6.884 17.364 5.7936L16.2064 4.636C15.116 3.5456 14.5704 3 13.8928 3C13.2896 3 12.792 3.432 11.9216 4.2944C11.9456 4.312 11.9683 4.33147 11.9896 4.3528L13.1216 5.4848C13.1789 5.54018 13.2246 5.6064 13.256 5.67962C13.2874 5.75284 13.3039 5.83158 13.3045 5.91125C13.3052 5.99091 13.29 6.06991 13.2598 6.14364C13.2296 6.21736 13.185 6.28433 13.1286 6.34064C13.0723 6.39695 13.0053 6.44147 12.9315 6.4716C12.8578 6.50173 12.7787 6.51688 12.6991 6.51615C12.6194 6.51542 12.5407 6.49883 12.4675 6.46735C12.3943 6.43587 12.3281 6.39013 12.2728 6.3328L11.1416 5.2016C11.1206 5.17981 11.1008 5.15684 11.0824 5.1328L10.224 5.9912C10.248 6.0088 10.2709 6.02853 10.2928 6.0504L11.9896 7.7472C12.0485 7.80213 12.0958 7.86837 12.1286 7.94197C12.1614 8.01557 12.1791 8.09502 12.1805 8.17558C12.1819 8.25614 12.1671 8.33617 12.1369 8.41088C12.1067 8.48559 12.0618 8.55346 12.0048 8.61043C11.9479 8.66741 11.88 8.71232 11.8053 8.7425C11.7306 8.77268 11.6505 8.78749 11.57 8.78607C11.4894 8.78465 11.41 8.76702 11.3364 8.73422C11.2628 8.70143 11.1965 8.65415 11.1416 8.5952L9.444 6.8992C9.42296 6.87715 9.40319 6.85391 9.3848 6.8296L8.528 7.688C8.55147 7.7056 8.5744 7.72533 8.5968 7.7472L9.728 8.8784C9.83398 8.99214 9.89168 9.14258 9.88894 9.29802C9.8862 9.45346 9.82323 9.60177 9.7133 9.7117C9.60337 9.82163 9.45506 9.8846 9.29962 9.88734C9.14418 9.89008 8.99374 9.83238 8.88 9.7264L7.7464 8.5968C7.72538 8.57501 7.70562 8.55204 7.6872 8.528L6.8296 9.384C6.85413 9.4016 6.87707 9.42133 6.8984 9.4432L8.596 11.1408C8.70524 11.254 8.76565 11.4056 8.76421 11.5629C8.76277 11.7202 8.69959 11.8707 8.5883 11.9819C8.477 12.0931 8.32648 12.1561 8.16916 12.1574C8.01184 12.1587 7.86031 12.0981 7.7472 11.9888L6.0504 10.292C6.02938 10.2702 6.00962 10.2472 5.9912 10.2232L5.1328 11.0816C5.1568 11.0987 5.17973 11.1184 5.2016 11.1408L6.3328 12.272C6.43878 12.3857 6.49648 12.5362 6.49374 12.6916C6.491 12.8471 6.42803 12.9954 6.3181 13.1053C6.20817 13.2152 6.05986 13.2782 5.90442 13.2809C5.74898 13.2837 5.59854 13.226 5.4848 13.12L4.352 11.9904C4.33128 11.9688 4.31178 11.9461 4.2936 11.9224C3.4312 12.792 3 13.2896 3 13.8928Z" fill="#FE9541"/>
+                </g>
+                <path d="M3 13.8928C3 14.5704 3.5456 15.116 4.636 16.2064L5.7936 17.364C6.884 18.4544 7.4296 19 8.1072 19C8.7848 19 9.3312 18.4544 10.4216 17.364L17.364 10.4216C18.4544 9.3304 19 8.784 19 8.1072C19 7.4304 18.4544 6.884 17.364 5.7936L16.2064 4.636C15.116 3.5456 14.5704 3 13.8928 3C13.2896 3 12.792 3.432 11.9216 4.2944C11.9456 4.312 11.9683 4.33147 11.9896 4.3528L13.1216 5.4848C13.1789 5.54018 13.2246 5.6064 13.256 5.67962C13.2874 5.75284 13.3039 5.83158 13.3045 5.91125C13.3052 5.99091 13.29 6.06991 13.2598 6.14364C13.2296 6.21736 13.185 6.28433 13.1286 6.34064C13.0723 6.39695 13.0053 6.44147 12.9315 6.4716C12.8578 6.50173 12.7787 6.51688 12.6991 6.51615C12.6194 6.51542 12.5407 6.49883 12.4675 6.46735C12.3943 6.43587 12.3281 6.39013 12.2728 6.3328L11.1416 5.2016C11.1206 5.17981 11.1008 5.15684 11.0824 5.1328L10.224 5.9912C10.248 6.0088 10.2709 6.02853 10.2928 6.0504L11.9896 7.7472C12.0485 7.80213 12.0958 7.86837 12.1286 7.94197C12.1614 8.01557 12.1791 8.09502 12.1805 8.17558C12.1819 8.25614 12.1671 8.33617 12.1369 8.41088C12.1067 8.48559 12.0618 8.55346 12.0048 8.61043C11.9479 8.66741 11.88 8.71232 11.8053 8.7425C11.7306 8.77268 11.6505 8.78749 11.57 8.78607C11.4894 8.78465 11.41 8.76702 11.3364 8.73422C11.2628 8.70143 11.1965 8.65415 11.1416 8.5952L9.444 6.8992C9.42296 6.87715 9.40319 6.85391 9.3848 6.8296L8.528 7.688C8.55147 7.7056 8.5744 7.72533 8.5968 7.7472L9.728 8.8784C9.83398 8.99214 9.89168 9.14258 9.88894 9.29802C9.8862 9.45346 9.82323 9.60177 9.7133 9.7117C9.60337 9.82163 9.45506 9.8846 9.29962 9.88734C9.14418 9.89008 8.99374 9.83238 8.88 9.7264L7.7464 8.5968C7.72538 8.57501 7.70562 8.55204 7.6872 8.528L6.8296 9.384C6.85413 9.4016 6.87707 9.42133 6.8984 9.4432L8.596 11.1408C8.70524 11.254 8.76565 11.4056 8.76421 11.5629C8.76277 11.7202 8.69959 11.8707 8.5883 11.9819C8.477 12.0931 8.32648 12.1561 8.16916 12.1574C8.01184 12.1587 7.86031 12.0981 7.7472 11.9888L6.0504 10.292C6.02938 10.2702 6.00962 10.2472 5.9912 10.2232L5.1328 11.0816C5.1568 11.0987 5.17973 11.1184 5.2016 11.1408L6.3328 12.272C6.43878 12.3857 6.49648 12.5362 6.49374 12.6916C6.491 12.8471 6.42803 12.9954 6.3181 13.1053C6.20817 13.2152 6.05986 13.2782 5.90442 13.2809C5.74898 13.2837 5.59854 13.226 5.4848 13.12L4.352 11.9904C4.33128 11.9688 4.31178 11.9461 4.2936 11.9224C3.4312 12.792 3 13.2896 3 13.8928Z" fill="#FE9541"/>
+                <defs>
+                <filter id="filter0_f_7_218" x="0" y="0" width="22" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feGaussianBlur stdDeviation="1.5" result="effect1_foregroundBlur_7_218"/>
+                </filter>
+                </defs>
+            </svg>
+          </p>
+        </div>
+      </div>
+
+    </div>
+        <h1 class="justify-center text-center font-bold text-3xl">{{ 'Statistique' | transloco }}</h1>
+        <div class="container mx-auto px-10">
+          <div class="space-y-4">
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_experience}}%</p>
+                <p class="text-sm">PV</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_experience}}%"></div>
+              </div>
+            </div>
+            
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_hp}}%</p>
+                <p class="text-sm">{{ 'HP' | transloco }}</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_hp}}%"></div>
+              </div>
+            </div>
+
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_attack}}%</p>
+                <p class="text-sm">{{ 'Attaque' | transloco }}</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_attack}}%"></div>
+              </div>
+            </div>
+
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_defense}}%</p>
+                <p class="text-sm">{{ 'Defense' | transloco }}</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_defense}}%"></div>
+              </div>
+            </div>
+
+            <div class="flex justify-center items-center">
+              <div>
+                <p class="font-bold text-2xl">{{pokemon.default_variety.base_stat_speed}}%</p>
+                <p class="text-sm">{{ 'Speed' | transloco }}</p>
+              </div>
+              <div class="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 flex max-w-md ml-4">
+                <div [ngClass]="getBackgroundColor()" class="h-full rounded-full" :style="width:{{pokemon.default_variety.base_stat_speed}}%"></div>
+              </div>
+            </div>
+            <!-- Répéter le même modèle pour les autres stats -->
+          </div>
         </div>
 
-        <h1 class="justify-center text-center">Statistique</h1>
-        <div class="flex">
-          <p>PV</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_experience}}%"></div>
-          </div>
-  
-        </div>
-        <div class="flex">
-          <p>HP</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_hp}}%"></div>
-          </div>
-  
-        </div>
-        <div class="flex">
-          <p>Attaque</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_attack}}%"></div>
-          </div>
-  
-        </div>
-        <div class="flex">
-          <p>Défense</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_defense}}%"></div>
-          </div>
-  
-        </div>
-        <div class="flex">
-          <p>Speed</p>
-          <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700 flex">
-            <div [ngClass]="getBackgroundColor()" :style=" width:{{pokemon.default_variety.base_stat_speed}}%"></div>
-          </div>
-  
-        </div>
+        
         
 
 
@@ -118,140 +202,139 @@
             <li>{{pokemon.default_variety.base_stat_special_defense}}</li>
             <li>{{pokemon.default_variety.base_stat_speed}}</li> -->
 
-    </div>
-    <div>
-      <h1>Talents</h1>
-      @if (pokemon.default_variety.abilities) {
-        @for (ability of pokemon.default_variety.abilities; track ability.id) {
-          <p>{{ ability.name }}</p>
-        }
-      }
-    </div>
-    
-    <!-- @if (pokemon) {
-      @if (pokemonevolution.previous_evolutions && pokemonevolution.previous_evolutions.length > 0) {
+    <div class="flex flex-row items-center">
       <div [ngClass]="getBackgroundClass()">
-        <div class="relative flex items-center justify-center">
-          <div class="flex items-center justify-center p-4 relative">
-            <div class="relative z-10">
-              @if (pokemonevolution) {
-                  <div>
-                    <h2 class="text-center text-white">Évolutions Précédentes</h2>
-                    @for (evolution_avant_avant of pokemonevolution.previous_evolutions; track evolution_avant_avant.id) {
-                      @if (evolution_avant_avant.pokemon_variety && evolution_avant_avant.pokemon_variety.sprites) {
-                        <img [src]="evolution_avant_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
-                    }
-                  }
-                  </div>
-              
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    }
+        <h1 class="justify-center text-center font-bold text-3xl">{{ 'Evolutions' | transloco }}</h1>
 
-  } -->
-    @if (pokemon && pokemonevolution) {
-      @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
-      <div [ngClass]="getBackgroundClass()">
-        <div class="relative flex items-center justify-center">
-          <div class="flex items-center justify-center p-4 relative">
-            <div class="relative z-10">
-              @if (pokemonevolution) {
-                  <div>
-                    <h2 class="text-center text-white">Évolutions Précédentes</h2>
-                    @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
-                      @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
-                        <img [src]="evolution_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
+        <!-- Mobile Slider - Only visible on small screens -->
+        <div class="md:hidden relative w-full overflow-hidden">
+          <div class="flex transition-transform duration-300 ease-in-out" [style.transform]="'translateX(-' + (currentSlide * 100) + '%)'">
+            <div class="flex items-center space-x-4 min-w-full flex-shrink-0">
+              @if (pokemon && pokemonevolution) {
+                @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
+                  @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
+                    @if (evolution_avant.previous_evolutions?.length) {
+                      @for(prev_evolution of evolution_avant.previous_evolutions; track prev_evolution.id) {
+                        @if (prev_evolution.pokemon_variety && prev_evolution.pokemon_variety.sprites) {
+                          <img [src]="prev_evolution.pokemon_variety.sprites.artwork_url" class="scale-50">
+                        }
                       }
                     }
-                  </div>
-                
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    }
-    
-      <!-- Affichage de l'évolution suivante (Evolution Après) -->
-      @if (pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
-
-      <div [ngClass]="getBackgroundClass()">
-        <div class="relative flex items-center justify-center">
-          <div class="flex items-center justify-center p-4 relative">
-            <div class="relative z-10">
-              @if (pokemonevolution) {
-                  <div>
-                    <h2 class="text-center text-white">Évolutions Suivantes</h2>
-                    @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id){
-                      <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
+                    @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
+                      <img [src]="evolution_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
+                    }
                   }
-                  </div>
-                
+                }
+                @if (pokemon && pokemonevolution) {
+                  <img [src]="pokemon.default_variety.sprites?.artwork_url" [alt]="pokemon.name" class="scale-50 ">
+                }
+                @if (pokemonevolution && pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
+                  @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id) {
+                    <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
+                    @if (evolution_apres.next_evolutions?.length) {
+                      @for(next_evolution of evolution_apres.next_evolutions; track next_evolution.id) {
+                        <img [src]="next_evolution.evolves_to.sprites?.artwork_url" class="scale-50">
+                      }
+                    }
+                  }
+                }
               }
             </div>
           </div>
+          
+          <!-- Navigation Buttons -->
+          <div class="absolute inset-y-0 left-0 flex items-center">
+            <button
+              (click)="prevSlide()"
+              class="bg-gray-200 p-2 rounded-full ml-2 opacity-50 hover:opacity-100"
+            >
+              ←
+            </button>
+          </div>
+          <div class="absolute inset-y-0 right-0 flex items-center">
+            <button
+              (click)="nextSlide()"
+              class="bg-gray-200 p-2 rounded-full mr-2 opacity-50 hover:opacity-100"
+            >
+              →
+            </button>
+          </div>
+        </div>
+    
+        <!-- Desktop Layout - Always visible -->
+        <div class="hidden md:flex items-center space-x-4">
+          @if (pokemon && pokemonevolution) {
+            @if (pokemonevolution.evolution_avant && pokemonevolution.evolution_avant.length > 0) {
+              @for (evolution_avant of pokemonevolution.evolution_avant; track evolution_avant.id) {
+                @if (evolution_avant.previous_evolutions?.length) {
+                  @for(prev_evolution of evolution_avant.previous_evolutions; track prev_evolution.id) {
+                    @if (prev_evolution.pokemon_variety && prev_evolution.pokemon_variety.sprites) {
+                      <img [src]="prev_evolution.pokemon_variety.sprites.artwork_url" class="scale-50">
+                    }
+                  }
+                }
+                @if (evolution_avant.pokemon_variety && evolution_avant.pokemon_variety.sprites) {
+                  <img [src]="evolution_avant.pokemon_variety.sprites.artwork_url" class="scale-50">
+                }
+              }
+            }
+            @if (pokemon && pokemonevolution) {
+              <img [src]="pokemon.default_variety.sprites?.artwork_url" [alt]="pokemon.name" class="scale-50 ">
+            }
+            @if (pokemonevolution && pokemonevolution.evolution_apres && pokemonevolution.evolution_apres.length > 0) {
+              @for(evolution_apres of pokemonevolution.evolution_apres; track evolution_apres.id) {
+                <img [src]="evolution_apres.evolves_to.sprites?.artwork_url" class="scale-50">
+                @if (evolution_apres.next_evolutions?.length) {
+                  @for(next_evolution of evolution_apres.next_evolutions; track next_evolution.id) {
+                    <img [src]="next_evolution.evolves_to.sprites?.artwork_url" class="scale-50">
+                  }
+                }
+              }
+            }
+          }
         </div>
       </div>
-    }
-    }
+    </div>
+      
+      
+    
 
 
     <div>
-        <h1>Attaque:</h1>
-        <div class="version-selector-container">
-          <label for="version-select" class="block text-sm font-medium text-gray-700 mb-2">
-            Sélectionner une version
-          </label>
-          <div class="relative">
-            <select 
-              id="version-select"
-              [(ngModel)]="selectedVersion" 
-              (change)="onVersionChange(selectedVersion)"
-              class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
-            >
-              <option [value]="version.id" *ngFor="let version of gameVersions">
-                {{version.generic_name}} (Gen. {{version.generation}})
-              </option>
-            </select>
-          </div>
+      <h1 class="justify-center text-center font-bold text-3xl">{{ 'Attaques' | transloco }}</h1>
+      <div class="flex justify-center my-4">
+        <div class="relative">
+          <select
+            id="version-select"
+            [(ngModel)]="selectedVersion"
+            (change)="onVersionChange(selectedVersion)"
+            class="bg-gray-200 border-0 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm text-center text-black">
+            <option [value]="version.id" *ngFor="let version of gameVersions">
+              {{version.generic_name}} (Gen. {{version.generation}})
+            </option>
+          </select>
         </div>
+      </div>
         
         <!-- Affichage des attaques avec style amélioré -->
-        <div class="moves-container mt-6" *ngIf="versionMoves">
-          <h3 class="text-xl font-semibold mb-4">
-            Attaques pour {{versionMoves.version.generic_name}}
-          </h3>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div 
-              class="move-card bg-white shadow rounded-lg p-4 hover:shadow-lg transition-shadow"
-              *ngFor="let moveInfo of visibleMoves">
-              <h4 class="text-lg font-medium text-gray-900 mb-2">
-                {{moveInfo.move.name}}
+        <div class="moves-container mt-6 rounded-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40" *ngIf="versionMoves">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 rounded-full">
+            <div *ngFor="let moveInfo of visibleMoves" class="w-full">
+              <h4 class="text-sm sm:text-base md:text-lg font-medium mb-2 border-2 rounded-full px-2 py-1 text-center">
+                {{ getMoveTranslatedName(moveInfo)}}
               </h4>
-              <div class="text-sm text-gray-600">
-                <p class="mb-1">
-                  <span class="font-medium">Méthode:</span> 
-                  {{moveInfo.move.name}}
-                </p>
+              <div class="text-xs sm:text-sm">
                 <p *ngIf="moveInfo.level > 0" class="mb-1">
-                  <span class="font-medium">Niveau:</span> 
-                  {{moveInfo.level}}
+                  <span class="font-medium">{{ 'Niveau' | transloco }}</span> {{ moveInfo.level }}
                 </p>
                 <p class="mb-1" *ngIf="moveInfo.move.power">
-                  <span class="font-medium">Puissance:</span> 
-                  {{moveInfo.move.power}}
+                  <span class="font-medium">{{ 'Puissance' | transloco }}</span> {{ moveInfo.move.power }}
                 </p>
                 <p class="mb-1" *ngIf="moveInfo.move.accuracy">
-                  <span class="font-medium">Précision:</span> 
-                  {{moveInfo.move.accuracy}}%
+                  <span class="font-medium">{{ 'Precision' | transloco }}</span> {{ moveInfo.move.accuracy }}%
                 </p>
                 <p class="mb-1">
-                  <span class="font-medium">PP:</span> 
-                  {{moveInfo.move.pp}}
+                  <span class="font-medium">{{ 'PP' | transloco }}</span> {{ moveInfo.move.pp }}
                 </p>
               </div>
             </div>
@@ -263,14 +346,14 @@
               (click)="visibleMoves = versionMoves.moves; showAll = true"
               class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
             >
-              Voir plus d'attaques
+              {{ 'plus' | transloco }}
             </button>
             <button 
               *ngIf="showAll"
               (click)="visibleMoves = versionMoves.moves.slice(0, 6); showAll = false"
               class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
             >
-              Voir moins
+              {{ 'moins' | transloco }}
             </button>
           </div>
         </div>
@@ -278,39 +361,55 @@
 
     <div class="flex justify-center">
       <!-- Bloc Faiblesses -->
-      <div class="same-size m-2 border-2 rounded-lg shadow-lg neon-red text-center border-red-500">
-        <div class="w-full">
-          <h3 class="text-xl font-bold mb-4">Faiblesses</h3>
-          <ul class="grid grid-cols-2 gap-4 w-full max-w-lg px-4 grid-center">
-            <!-- Boucle Faiblesses -->
-            @for(faiblesse of getFaiblesses(); track faiblesse[0]) {
-              <li>{{ faiblesse[0] }}</li>
-            }
-          </ul>
+      <div class="flex justify-center">
+        <div class="same-size m-2 border-2 rounded-lg shadow-lg neon-red text-center border-red-500">
+          <div class="w-full">
+            <h3 class="text-xl font-bold mb-4">{{ 'Faiblesses' | transloco }}</h3>
+            <ul class="grid grid-cols-2 gap-4 w-full max-w-lg px-4 grid-center">
+              @for(faiblesse of getFaiblesses(); track faiblesse[0]) {
+                <span class="px-3 py-1 rounded-full border text-{{faiblesse[0].toLowerCase()}}-500 border-{{faiblesse[0].toLowerCase()}}-500">
+                  {{faiblesse[0]}}
+                </span>
+              }
+            </ul>
+          </div>
         </div>
       </div>
     
       <!-- Bloc Forces -->
       <div class="same-size m-2 border-2 rounded-lg shadow-lg neon-green text-center border-green-500">
         <div class="w-full">
-          <h3 class="text-xl font-bold mb-4">Forces</h3>
+          <h3 class="text-xl font-bold mb-4">{{ 'Forces' | transloco }}</h3>
           <ul class="grid grid-cols-2 gap-4 w-full max-w-lg px-4 grid-center">
             <!-- Boucle Forces -->
             @for(resiste of getResiste(); track resiste[0]) {
-              <li>{{ resiste[0] }}</li>
+              <span class="px-3 py-1 rounded-full border text-{{resiste[0].toLowerCase()}}-500 border-{{resiste[0].toLowerCase()}}-500">
+                {{ resiste[0] }}
+              </span>            
             }
           </ul>
         </div>
       </div>
     </div>
+    <div [ngClass]="getBackgroundClass()">
+      <h1 class="justify-center text-center font-bold text-3xl">{{ 'Déclinaisons' | transloco }}</h1>
+
+
+      <div class="relative flex items-center justify-center">
+        <div>
+  
+        </div>
+        <div class="flex items-center justify-center p-4 relative">
+          <div class="relative z-10">
+            <img [src]="pokemon.default_variety.sprites?.artwork_shiny_url" alt="front sprite shiny" class="scale-100">
+  
+          </div>
+      </div>
+     
     
+      </div>
     </div>
 
 
-
-
-    
-
-
-
+    </div>
   }

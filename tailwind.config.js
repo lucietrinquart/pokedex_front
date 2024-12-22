@@ -2,6 +2,7 @@
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./src/**/*.{html,ts}",
   ],
@@ -15,6 +16,7 @@ module.exports = {
         'rouge': '#EB0000',
         'autrerouge': '#FF6E6E',
         'noir': '#313131',
+        
         water: {
           500: '#6390F0',
           700: '#4b6ec0',
@@ -82,8 +84,18 @@ module.exports = {
         fairy: {
           500: '#D685AD',
           700: '#ad6a89',
-        },         
+        },
+        dark: {
+          background: '#121212',
+          text: '#ffffff',
+        },
+        light: {
+          background: '#ffffff',
+          text: '#000000',
+        }         
       },
+      
+      
   },
   },
   safelist: [

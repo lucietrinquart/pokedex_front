@@ -1,1 +1,39 @@
-{}
+{
+    "rechercher_pokemon": "尋找寶可夢",
+    "sacha": "小智",
+    "Dresseur": "從年開始的訓練師",
+    "Statistiques": "統計數據",
+    "captures": "捕獲的寶可夢",
+    "enregistres": "捕獲的寶可夢",
+    "acapturer": "需要捕捉的寶可夢",
+    "Compagnon": "夥伴",
+    "choisi": "選擇的寶可夢",
+    "Choisir": "選擇一個夥伴",
+    "Fermer": "關閉",
+    "favori": "收藏",
+    "Statistique": "統計",
+    "metre": "公尺",
+    "poids": "重量",
+    "HP": "HP",
+    "Attaque": "攻擊",
+    "Defence": "防禦",
+    "Speed": "速度",
+    "Precedentes": "前一阶段的进化",
+    "Suivantes": "後續進化",
+    "Attaques": "Útoky",
+    "Niveau": "等級",
+    "Puissance": "攻擊",
+    "Precision": "命中率",
+    "PP": "PP",
+    "plus": "查看更多攻擊",
+    "moins": "查看更少",
+    "Faiblesses": "弱點",
+    "Forces": "優勢",
+    "talent": "才華",
+    "déclinaisons": "變形",
+    "évolutions ": "進化"
+
+
+
+
+}
