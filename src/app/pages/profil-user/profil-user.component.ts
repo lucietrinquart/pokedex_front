@@ -17,6 +17,8 @@ export class ProfilUserComponent implements OnInit{
   selectedPokemon: any = null;
   isLoading: boolean = false;
   pokemonCount: number = 0;
+  pokemonCount2: number = 0;  
+
 
 
   get userName(): string {
@@ -44,14 +46,17 @@ export class ProfilUserComponent implements OnInit{
       this.companionPokemonIds = response.map((companion: any) => companion.pokemon_id);
       
       // Charger tous les Pokémon
-      this.loadAllPokemons();
+      this.loadPokemonCount();
     });
     console.log('État initial des pokemons:', this.companionPokemons);
-    this.getPokemonCount();
+    this.loadPokemonCount();
+    this.loadPokemonCount2().then(count => {
+      console.log('Résultat final:', count);
+    });
   }
-
-  getPokemonCount() {
-    this.apiService.requestApi('/pokemonscompagnons').then((response: any) => {
+  async loadPokemonCount() {
+    try {
+      const response = await this.apiService.requestApi('/pokemonscompagnons');
       let processedData: PokemonUser[];
       
       if (Array.isArray(response)) {
@@ -64,13 +69,45 @@ export class ProfilUserComponent implements OnInit{
       
       this.companionPokemons = processedData;
       this.pokemonCount = this.companionPokemons.length;
-      
       console.log('Nombre de pokemon:', this.pokemonCount);
-      console.log('Pokemons:', this.companionPokemons);
-      return this.pokemonCount
-    }).catch(error => {
+      return this.pokemonCount;
+    } catch (error) {
       console.error('Erreur:', error);
-    });
+      return 0;
+    }
+  }
+  async loadPokemonCount2(): Promise<number> {
+    try {
+      console.log('Début de la fonction');
+      const response = await this.apiService.requestApi('/pokemonscompagnons');
+      console.log('Réponse API brute:', response); // Nouveau log
+      
+      let processedData: PokemonUser[];
+      
+      if (Array.isArray(response)) {
+        console.log('Response est un tableau');
+        processedData = response.flat() as PokemonUser[];
+      } else if (response.data && Array.isArray(response.data)) {
+        console.log('Response.data est un tableau');
+        processedData = response.data.flat() as PokemonUser[];
+      } else {
+        console.log('Utilisation de Object.values');
+        processedData = Object.values(response).flat() as PokemonUser[];
+      }
+      
+      console.log('ProcessedData:', processedData); // Nouveau log
+      this.companionPokemons = processedData;
+      const capturedCount = this.companionPokemons.length;
+      
+      console.log('Nombre de Pokémon capturés:', capturedCount);
+      this.pokemonCount2 = 1025 - capturedCount;
+      console.log('Nombre de Pokémon manquants:', this.pokemonCount2);
+      
+      return this.pokemonCount2;
+    } catch (error) {
+      console.error('Erreur détaillée:', error); // Log plus détaillé
+      return 0;
+    }
   }
   // Fonction pour charger les détails d'un Pokémon
   ajoutcompagnons(pokemonId: number) {
