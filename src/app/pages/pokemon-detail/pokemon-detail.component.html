@@ -66,7 +66,7 @@
       <img [src]="pokemon.default_variety.sprites?.back_shiny_url" alt="back sprite shiny" class="h-24 w-24 p-1 bg-neutral rounded-lg">
     </div> -->
 
-    <div class="text-white p-6">
+    <div class="p-6">
       <!-- Section des valeurs -->
       <div class="flex items-center justify-center space-x-16">
         <div class="flex flex-col items-center">
@@ -91,7 +91,7 @@
         </div>
         
         <!-- Première séparation verticale -->
-        <div class="h-24 w-px bg-white opacity-50"></div>
+        <div class="h-24 w-px opacity-50"></div>
         
         <div class="flex flex-col items-center">
           <p class="text-4xl font-bold mb-2">{{pokemon.default_variety.weight}}</p>
@@ -109,7 +109,7 @@
         </div>
         
         <!-- Deuxième séparation verticale -->
-        <div class="h-24 w-px bg-white opacity-50"></div>
+        <div class="h-24 w-px opacity-50"></div>
         
         <div class="flex flex-col items-center">
           <div class="text-4xl font-bold mb-2">{{ secondAbilityName }}</div>
@@ -204,7 +204,7 @@
 
     <div class="flex flex-row items-center">
       <div [ngClass]="getBackgroundClass()">
-        <h1 class="justify-center text-center font-bold text-3xl">{{ 'Evolutions' | transloco }}</h1>
+        <h1 class="justify-center text-center font-bold text-3xl">{{ 'evolutions' | transloco }}</h1>
 
         <!-- Mobile Slider - Only visible on small screens -->
         <div class="md:hidden relative w-full overflow-hidden">
@@ -392,7 +392,7 @@
       </div>
     </div>
     <div [ngClass]="getBackgroundClass()">
-      <h1 class="justify-center text-center font-bold text-3xl">{{ 'Déclinaisons' | transloco }}</h1>
+      <h1 class="justify-center text-center font-bold text-3xl">{{ 'declinaisons' | transloco }}</h1>
 
 
       <div class="relative flex items-center justify-center">
